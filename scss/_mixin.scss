@@ -1,0 +1,18 @@
+@mixin center{
+    display :  flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+@mixin left{
+  display: flex;
+  align-items: center;             // vertically centers items
+  justify-content: flex-start;
+}
+
+@mixin details-section{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}

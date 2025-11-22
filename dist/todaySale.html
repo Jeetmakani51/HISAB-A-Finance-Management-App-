@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Today's Sales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    <script src="auth.js"></script>
+</head>
+<body>
+    <div class="todaysSale">
+        <div class="topBar">
+            <a href="reports.html"><i class="fa-solid fa-arrow-left"></i></a>
+            <h2>Today's Sales</h2>
+            <img class="Logo" src="bcgLogo.png" alt="Logo">
+        </div>
+        <hr class="section-divider">
+
+        <!-- Key Metrics Cards -->
+        <div class="metricsCards">
+            <div class="metricCard">
+                <i class="fa-solid fa-indian-rupee-sign"></i>
+                <div class="metricValue" id="todayRevenue">₹0</div>
+                <div class="metricLabel">Today's Revenue</div>
+            </div>
+            <div class="metricCard">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <div class="metricValue" id="ordersToday">0</div>
+                <div class="metricLabel">Orders Today</div>
+            </div>
+            <div class="metricCard">
+                <i class="fa-solid fa-chart-line"></i>
+                <div class="metricValue" id="avgOrderValue">₹0</div>
+                <div class="metricLabel">Avg Order Value</div>
+            </div>
+            <div class="metricCard">
+                <i class="fa-solid fa-crown"></i>
+                <div class="metricValue" id="topCustomer">-</div>
+                <div class="metricLabel">Top Customer</div>
+            </div>
+        </div>
+
+        <!-- Hourly Sales Chart -->
+        <div class="chartContainer">
+            <h3>Hourly Sales</h3>
+            <div id="hourlySalesChart"></div>
+        </div>
+
+        <!-- Payment Methods & Today's Orders -->
+        <div class="twoColumnSection">
+            <div class="chartContainer">
+                <h3>Payment Methods Today</h3>
+                <div id="paymentMethodsChart"></div>
+            </div>
+            <div class="chartContainer">
+                <h3>Product Performance</h3>
+                <div id="productPerformance"></div>
+            </div>
+        </div>
+
+        <!-- Today's Orders List -->
+        <div class="ordersSection">
+            <h3>Today's Orders</h3>
+            <div id="ordersList"></div>
+        </div>
+
+        <!-- Comparison Widget -->
+        <div class="comparisonWidget">
+            <h3>Performance Comparison</h3>
+            <div class="comparisonCards">
+                <div class="compCard">
+                    <div class="compLabel">Today</div>
+                    <div class="compValue" id="todayComp">₹0</div>
+                </div>
+                <div class="compCard">
+                    <div class="compLabel">Yesterday</div>
+                    <div class="compValue" id="yesterdayComp">₹0</div>
+                    <div class="compChange" id="yesterdayChange">-</div>
+                </div>
+                <div class="compCard">
+                    <div class="compLabel">Last Week Same Day</div>
+                    <div class="compValue" id="lastWeekComp">₹0</div>
+                    <div class="compChange" id="lastWeekChange">-</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="todaysSale.js"></script>
+</body>
+</html>

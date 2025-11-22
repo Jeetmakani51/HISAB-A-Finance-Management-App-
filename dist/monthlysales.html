@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monthly Sales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./css/main.css">
+    
+</head>
+<body>
+    <div class="monthlySale">
+        <div class="topBar">
+            <a href="reports.html"><i class="fa-solid fa-arrow-left"></i></a>
+            <h2>Monthly Sales</h2>
+            <img class="Logo" src="bcgLogo.png" alt="Logo">
+        </div>
+        <hr class="section-divider">
+
+        <!-- Key Metrics Cards -->
+        <div class="metricsCards">
+            <div class="metricCard">
+                <i class="fa-solid fa-sack-dollar"></i>
+                <div class="metricValue" id="monthRevenue">₹0</div>
+                <div class="metricLabel">This Month's Revenue</div>
+            </div>
+            <div class="metricCard">
+                <i class="fa-solid fa-shopping-cart"></i>
+                <div class="metricValue" id="totalOrders">0</div>
+                <div class="metricLabel">Total Orders</div>
+            </div>
+            <div class="metricCard">
+                <i class="fa-solid fa-user-plus"></i>
+                <div class="metricValue" id="newCustomers">0</div>
+                <div class="metricLabel">New Customers</div>
+            </div>
+            <div class="metricCard">
+                <i class="fa-solid fa-chart-line"></i>
+                <div class="metricValue" id="growthRate">0%</div>
+                <div class="metricLabel">Growth vs Last Month</div>
+            </div>
+        </div>
+
+        <!-- Daily Sales Line Chart -->
+        <div class="chartContainer">
+            <h3>Daily Sales This Month</h3>
+            <div id="dailySalesChart"></div>
+        </div>
+
+        <!-- Weekly Breakdown & Payment Distribution -->
+        <div class="twoColumnSection">
+            <div class="chartContainer">
+                <h3>Weekly Breakdown</h3>
+                <div id="weeklyBreakdown"></div>
+            </div>
+            <div class="chartContainer">
+                <h3>Payment Methods</h3>
+                <div id="paymentDistribution"></div>
+            </div>
+        </div>
+
+        <!-- Top Customers Leaderboard -->
+        <div class="leaderboardSection">
+            <h3>Top 5 Customers This Month</h3>
+            <div id="topCustomers"></div>
+        </div>
+
+        <!-- Best Selling Products & Sales by Day of Week -->
+        <div class="twoColumnSection">
+            <div class="chartContainer">
+                <h3>Best Selling Products</h3>
+                <div id="bestProducts"></div>
+            </div>
+            <div class="chartContainer">
+                <h3>Sales by Day of Week</h3>
+                <div id="salesByDay"></div>
+            </div>
+        </div>
+
+        <!-- Pending Payments Tracker -->
+        <div class="pendingSection">
+            <h3>Pending Payments</h3>
+            <div class="pendingHeader">
+                <div class="pendingTotal" id="totalPending">₹0</div>
+                <div class="pendingCount" id="pendingCount">0 customers</div>
+            </div>
+            <div id="pendingList"></div>
+        </div>
+
+        <!-- Monthly Target Progress -->
+        <div class="targetSection">
+            <h3>Monthly Target Progress</h3>
+            <div class="targetInfo">
+                <div class="targetItem">
+                    <span>Target:</span>
+                    <span class="targetValue" id="targetAmount">₹1,50,000</span>
+                </div>
+                <div class="targetItem">
+                    <span>Achieved:</span>
+                    <span class="targetValue" id="achievedAmount">₹0</span>
+                </div>
+                <div class="targetItem">
+                    <span>Remaining:</span>
+                    <span class="targetValue" id="remainingDays">0 days</span>
+                </div>
+            </div>
+            <div class="progressBar">
+                <div class="progressFill" id="progressFill"></div>
+                <div class="progressText" id="progressText">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="monthlysales.js"></script>
+</body>
+</html>
