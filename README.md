@@ -57,17 +57,30 @@ Sales by day of week,
 Pending payments tracker,
 Monthly target progress
 
+<img width="200" height="500" alt="Screenshot 2025-11-23 223915" src="https://github.com/user-attachments/assets/023a1f4e-3346-4e94-9c29-0c100205a4db" />
+
+<img width="200" height="500" alt="Screenshot 2025-11-23 223927" src="https://github.com/user-attachments/assets/e0955034-6e03-43ac-a6cf-7367f89ca748" />
+
+<img width="200" height="500" alt="Screenshot 2025-11-23 223944" src="https://github.com/user-attachments/assets/1dfcea89-5346-46dd-a3e5-fb050e41df7b" />
+
+<img width="200" height="500" alt="Screenshot 2025-11-23 223959" src="https://github.com/user-attachments/assets/3afa1f7f-8200-47ed-b149-1fa96f95f82a" />
+
+<img width="200" height="500" alt="Screenshot 2025-11-23 224017" src="https://github.com/user-attachments/assets/c643e921-123c-4513-b605-b29f74871eec" />
+
+<img width="200" height="500" alt="Screenshot 2025-11-23 224029" src="https://github.com/user-attachments/assets/93b5b410-d064-4c77-a161-fb17bf08e54d" />
 
 Reports Page - Overview with:
 
-Total sales
-Customer count
-Growth percentage
-Top product
-Sales over time chart
-Payment method distribution
+Total sales,
+Customer count,
+Growth percentage,
+Top product,
+Sales over time chart,
+Payment method distribution,
 
+<img width="200" height="500" alt="Screenshot 2025-11-23 224408" src="https://github.com/user-attachments/assets/7b1d02a1-74ef-4750-843a-3e182575cde0" />
 
+<img width="200" height="500" alt="Screenshot 2025-11-23 224425" src="https://github.com/user-attachments/assets/4cd8519d-8cdf-4265-a09f-751ecbe6bcc8" />
 
 📱 WhatsApp Integration
 
