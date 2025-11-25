@@ -3571,6 +3571,7 @@
   max-width: 450px;
 
   .loginCard {
+    margin-top: 10vh;
     background: white;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -3613,9 +3614,11 @@
     }
 
     .loginForm {
+      background: transparent;
       .inputGroup {
         position: relative;
         margin-bottom: 20px;
+        background: transparent;
 
         i {
           position: absolute;
@@ -3664,6 +3667,7 @@
         display: flex;
         align-items: center;
         margin-bottom: 25px;
+        background: transparent;
 
         label {
           display: flex;
@@ -3706,6 +3710,12 @@
 
         &:active {
           transform: translateY(0);
+        }
+        span{
+          background: transparent;
+        }
+        i{
+          background: transparent;
         }
       }
     }
@@ -3759,12 +3769,18 @@
     padding: 30px 20px;
 
     .logoSection {
+      background: transparent;
       .loginLogo {
         width: 60px;
+        background: transparent;
       }
 
       h1 {
         font-size: 28px;
+        background: transparent;
+      }
+      P{
+        background: transparent;
       }
     }
 
