@@ -3178,6 +3178,7 @@
   max-width: 450px;
 }
 .loginContainer .loginCard {
+  margin-top: 10vh;
   background: white;
   border-radius: 20px;
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -3214,9 +3215,13 @@
   color: #555555;
   font-size: 14px;
 }
+.loginContainer .loginCard .loginForm {
+  background: transparent;
+}
 .loginContainer .loginCard .loginForm .inputGroup {
   position: relative;
   margin-bottom: 20px;
+  background: transparent;
 }
 .loginContainer .loginCard .loginForm .inputGroup i {
   position: absolute;
@@ -3261,6 +3266,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 25px;
+  background: transparent;
 }
 .loginContainer .loginCard .loginForm .rememberMe label {
   display: flex;
@@ -3299,6 +3305,12 @@
 }
 .loginContainer .loginCard .loginForm .loginBtn:active {
   transform: translateY(0);
+}
+.loginContainer .loginCard .loginForm .loginBtn span {
+  background: transparent;
+}
+.loginContainer .loginCard .loginForm .loginBtn i {
+  background: transparent;
 }
 .loginContainer .loginCard .errorMessage {
   margin-top: 15px;
@@ -3340,11 +3352,19 @@
   .loginContainer .loginCard {
     padding: 30px 20px;
   }
+  .loginContainer .loginCard .logoSection {
+    background: transparent;
+  }
   .loginContainer .loginCard .logoSection .loginLogo {
     width: 60px;
+    background: transparent;
   }
   .loginContainer .loginCard .logoSection h1 {
     font-size: 28px;
+    background: transparent;
+  }
+  .loginContainer .loginCard .logoSection P {
+    background: transparent;
   }
   .loginContainer .loginCard .loginForm .inputGroup input {
     padding: 12px 12px 12px 45px;
