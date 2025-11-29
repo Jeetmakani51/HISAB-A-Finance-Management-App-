@@ -197,7 +197,7 @@
   background-color: $common-bg;
   .topBar{
     display : flex;
-    justify-content : space-between;
+    justify-content : center;
     align-items: center;
     padding : 20px;
     font-size: 32px;
@@ -209,8 +209,9 @@
       font-family: "Fontdiner Swanky",cursive;
     }
     .Logo{
-      width : 138px;
+      width : 100px;
       height : auto;
+      margin-left: 5vw;
     }
   }
   .divider{
@@ -3790,4 +3791,71 @@
       }
     }
   }
+}
+
+//nav bar
+nav{
+  position: fixed;
+  top: 0;
+  left: -100%;
+  height : 100vh;
+  z-index: 10;
+  border-right: 1px solid $h-secondary;
+  transition: left 300ms ease-out;
+}
+
+
+nav.show{
+  left : 0;
+}
+
+nav ul{
+  list-style: none; // means we can keep the list "dot" "square" or "none"
+  display : flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+nav .profile-li{
+  margin-right: auto;
+}
+
+nav a{
+  display: flex;
+  text-decoration: none;
+  padding: 1px 1px;
+}
+
+nav a:hover{
+  background-color: #4a90e2;
+}
+
+#openSliders{
+  display: block;
+  background: none;
+  border: none;
+  padding : 1em;
+  margin-right: auto;
+  margin-right: 7vw;
+  cursor: pointer;
+}
+
+#closeSliders{
+  display : none;
+  background: none;
+  border: none;
+  padding : 1em;
+  cursor: pointer;
+}
+
+#overlay{
+  background: rgba(0,0,0,0.5);
+  position: fixed;
+  inset : 0;
+  z-index: 9;
+  display : none;
+}
+
+nav.show ~ #overlay{
+  display : block;
 }
