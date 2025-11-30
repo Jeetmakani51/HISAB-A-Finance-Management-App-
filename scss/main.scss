@@ -2986,8 +2986,6 @@
   }
 }*/
 
-// Variables
-
 .monthlySale {
   background-color: $common-bg;
   padding: 20px;
@@ -3053,6 +3051,7 @@
       i {
         font-size: 32px;
         margin-bottom: 15px;
+        background: transparent;
       }
 
       .metricValue {
@@ -3060,6 +3059,7 @@
         font-weight: bold;
         color: #333;
         margin-bottom: 8px;
+        background: transparent;
       }
 
       .metricLabel {
@@ -3067,6 +3067,7 @@
         color: #666;
         text-transform: uppercase;
         letter-spacing: 0.5px;
+        background: transparent;
       }
 
       &:nth-child(1) i { color: $success; }
@@ -3335,11 +3336,13 @@
         font-size: 32px;
         font-weight: bold;
         color: $warning;
+        background: transparent;
       }
 
       .pendingCount {
         font-size: 14px;
         color: #92400e;
+        background: transparent;
       }
     }
 
@@ -3762,9 +3765,6 @@
 
 // Responsive
 @media (max-width: 480px) {
-  body {
-    padding: 10px;
-  }
 
   .loginContainer .loginCard {
     padding: 30px 20px;
@@ -3795,13 +3795,23 @@
 
 //nav bar
 nav{
+  background-color: $h-primary;
   position: fixed;
   top: 0;
   left: -100%;
   height : 100vh;
+  width : 50vw;
   z-index: 10;
   border-right: 1px solid $h-secondary;
   transition: left 300ms ease-out;
+  li{
+    background: transparent;
+    background-color: $h-primary;
+    a{
+      color : $bg-light;
+      padding : 20px;
+    }
+  }
 }
 
 
@@ -3814,6 +3824,11 @@ nav ul{
   display : flex;
   flex-direction: column;
   width: 100%;
+  background: transparent;
+  background-color: $h-primary;
+  a{
+    background: transparent;
+  }
 }
 
 nav .profile-li{
@@ -3843,9 +3858,14 @@ nav a:hover{
 #closeSliders{
   display : none;
   background: none;
+  background-color: $h-primary;
   border: none;
   padding : 1em;
   cursor: pointer;
+
+  svg{
+    background: transparent;
+  }
 }
 
 #overlay{

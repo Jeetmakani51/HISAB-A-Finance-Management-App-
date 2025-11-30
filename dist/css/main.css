@@ -2759,18 +2759,21 @@
 .monthlySale .metricsCards .metricCard i {
   font-size: 32px;
   margin-bottom: 15px;
+  background: transparent;
 }
 .monthlySale .metricsCards .metricCard .metricValue {
   font-size: 32px;
   font-weight: bold;
   color: #333;
   margin-bottom: 8px;
+  background: transparent;
 }
 .monthlySale .metricsCards .metricCard .metricLabel {
   font-size: 14px;
   color: #666;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  background: transparent;
 }
 .monthlySale .metricsCards .metricCard:nth-child(1) i {
   color: #4CAF50;
@@ -2995,10 +2998,12 @@
   font-size: 32px;
   font-weight: bold;
   color: #f59e0b;
+  background: transparent;
 }
 .monthlySale .pendingSection .pendingHeader .pendingCount {
   font-size: 14px;
   color: #92400e;
+  background: transparent;
 }
 .monthlySale .pendingSection #pendingList .pendingCard {
   display: flex;
@@ -3347,9 +3352,6 @@
 }
 
 @media (max-width: 480px) {
-  body {
-    padding: 10px;
-  }
   .loginContainer .loginCard {
     padding: 30px 20px;
   }
@@ -3372,13 +3374,23 @@
   }
 }
 nav {
+  background-color: #212121;
   position: fixed;
   top: 0;
   left: -100%;
   height: 100vh;
+  width: 50vw;
   z-index: 10;
   border-right: 1px solid #555555;
   transition: left 300ms ease-out;
+}
+nav li {
+  background: transparent;
+  background-color: #212121;
+}
+nav li a {
+  color: #F5F6FA;
+  padding: 20px;
 }
 
 nav.show {
@@ -3390,6 +3402,11 @@ nav ul {
   display: flex;
   flex-direction: column;
   width: 100%;
+  background: transparent;
+  background-color: #212121;
+}
+nav ul a {
+  background: transparent;
 }
 
 nav .profile-li {
@@ -3419,9 +3436,13 @@ nav a:hover {
 #closeSliders {
   display: none;
   background: none;
+  background-color: #212121;
   border: none;
   padding: 1em;
   cursor: pointer;
+}
+#closeSliders svg {
+  background: transparent;
 }
 
 #overlay {
