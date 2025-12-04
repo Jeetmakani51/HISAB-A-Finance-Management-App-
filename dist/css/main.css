@@ -3455,4 +3455,50 @@ nav a:hover {
 
 nav.show ~ #overlay {
   display: block;
+}
+
+.profContainer .profHeaderConst {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  height: 10vh;
+  background-color: #f5f6fa;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-between;
+  border-width: 100vw;
+  border-bottom: 2px solid #e0e0e0;
+}
+.profContainer .profHeaderConst a {
+  font-size: 25px;
+}
+
+.profMain {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  min-height: 30vh;
+  padding: 20px;
+  background-color: #f5f6fa;
+  border-bottom: 2px solid #e0e0e0;
+}
+.profMain .profInitials {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background-color: #555555;
+  margin-bottom: 10px;
+}
+.profMain h1 {
+  background: transparent;
+  color: #F5F6FA;
+}
+.profMain h3, .profMain p {
+  margin: 5px 0;
+  text-align: center;
 }/*# sourceMappingURL=main.css.map */
