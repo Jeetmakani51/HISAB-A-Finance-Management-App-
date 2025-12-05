@@ -3931,3 +3931,56 @@ nav.show ~ #overlay{
     text-align: center;
   }
 }
+
+.profInfo{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  border-bottom: 2px solid $h-divider;
+
+  .inputRow{
+    padding: 10px;
+    gap: 5px;
+
+    input{
+      font-size: large;
+    }
+    i{
+      font-size: 25px;
+    }
+  }
+}
+
+.TotSaleRow{
+  display : flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border-bottom: 2px solid $h-divider;
+
+  .rowItem{
+    margin : 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+  }
+}
+
+.profLower{
+    display: flex;
+  }
+
+  .ProSave{
+    display: flex;
+    margin: 20px;
+    justify-content: center;
+    align-items: center;
+
+    button{
+      width : 80vw;
+      height : 5vh;
+      border-radius: 10px;
+      background-color: $primary-blue;
+      color : white;
+      font-weight: bolder;
+    }
+  }

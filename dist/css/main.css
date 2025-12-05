@@ -3501,4 +3501,53 @@ nav.show ~ #overlay {
 .profMain h3, .profMain p {
   margin: 5px 0;
   text-align: center;
+}
+
+.profInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  border-bottom: 2px solid #e0e0e0;
+}
+.profInfo .inputRow {
+  padding: 10px;
+  gap: 5px;
+}
+.profInfo .inputRow input {
+  font-size: large;
+}
+.profInfo .inputRow i {
+  font-size: 25px;
+}
+
+.TotSaleRow {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  border-bottom: 2px solid #e0e0e0;
+}
+.TotSaleRow .rowItem {
+  margin: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+}
+
+.profLower {
+  display: flex;
+}
+
+.ProSave {
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
+}
+.ProSave button {
+  width: 80vw;
+  height: 5vh;
+  border-radius: 10px;
+  background-color: #4A90E2;
+  color: white;
+  font-weight: bolder;
 }/*# sourceMappingURL=main.css.map */
