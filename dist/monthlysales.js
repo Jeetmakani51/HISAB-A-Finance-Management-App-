@@ -415,35 +415,6 @@ function createTargetProgress(achieved, currentMonth) {
   document.getElementById("remainingDays").textContent = `${remainingDays} days`;
 }*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*document.addEventListener("DOMContentLoaded", () => {
   const purchases = JSON.parse(localStorage.getItem("purchases")) || [];
   const customers = JSON.parse(localStorage.getItem("customers")) || [];
@@ -864,25 +835,6 @@ function createTargetProgress(achieved, currentMonth) {
   document.getElementById("remainingDays").textContent = `${remainingDays} days`;
 }*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 document.addEventListener("DOMContentLoaded", () => {
   const purchases = JSON.parse(localStorage.getItem("purchases")) || [];
   const customers = JSON.parse(localStorage.getItem("customers")) || [];
@@ -893,50 +845,78 @@ document.addEventListener("DOMContentLoaded", () => {
   const currentYear = now.getFullYear();
 
   // Filter this month's purchases
-  const thisMonthPurchases = purchases.filter(p => {
+  const thisMonthPurchases = purchases.filter((p) => {
     if (!p.timestamp) return false;
     const purchaseDate = new Date(p.timestamp);
-    return purchaseDate.getMonth() === currentMonth && purchaseDate.getFullYear() === currentYear;
+    return (
+      purchaseDate.getMonth() === currentMonth &&
+      purchaseDate.getFullYear() === currentYear
+    );
   });
 
   // Filter last month's purchases for comparison
   const lastMonth = new Date(currentYear, currentMonth - 1, 1);
-  const lastMonthPurchases = purchases.filter(p => {
+  const lastMonthPurchases = purchases.filter((p) => {
     if (!p.timestamp) return false;
     const purchaseDate = new Date(p.timestamp);
-    return purchaseDate.getMonth() === lastMonth.getMonth() && purchaseDate.getFullYear() === lastMonth.getFullYear();
+    return (
+      purchaseDate.getMonth() === lastMonth.getMonth() &&
+      purchaseDate.getFullYear() === lastMonth.getFullYear()
+    );
   });
 
   // ========== UPDATE METRICS CARDS ==========
-  
+
   // 1. This Month's Revenue
   const monthRevenue = thisMonthPurchases.reduce((sum, p) => sum + p.price, 0);
-  document.getElementById("monthRevenue").textContent = `₹${monthRevenue.toLocaleString()}`;
+  document.getElementById(
+    "monthRevenue"
+  ).textContent = `₹${monthRevenue.toLocaleString()}`;
+
+  //Total Customers Count
+  const totalCustomersCount = customers.length;
+  document.getElementById("totalCustomers").textContent = totalCustomersCount;
+
+  const totalInvoices = purchases.length;
+  document.getElementById("totalInvoices").textContent = totalInvoices;
 
   // 2. Total Orders
-  document.getElementById("totalOrders").textContent = thisMonthPurchases.length;
+  document.getElementById("totalOrders").textContent =
+    thisMonthPurchases.length;
 
   // 3. New Customers This Month
   const firstOfMonth = new Date(currentYear, currentMonth, 1).getTime();
-  const newCustomersCount = customers.filter(c => {
-    const customerPurchases = purchases.filter(p => p.customerNumber === c.number);
+  const newCustomersCount = customers.filter((c) => {
+    const customerPurchases = purchases.filter(
+      (p) => p.customerNumber === c.number
+    );
     if (customerPurchases.length === 0) return false;
-    const firstPurchase = Math.min(...customerPurchases.map(p => p.timestamp));
+    const firstPurchase = Math.min(
+      ...customerPurchases.map((p) => p.timestamp)
+    );
     return firstPurchase >= firstOfMonth;
   }).length;
   document.getElementById("newCustomers").textContent = newCustomersCount;
 
   // 4. Growth Rate vs Last Month
-  const lastMonthRevenue = lastMonthPurchases.reduce((sum, p) => sum + p.price, 0);
+  const lastMonthRevenue = lastMonthPurchases.reduce(
+    (sum, p) => sum + p.price,
+    0
+  );
   let growthRate = 0;
   if (lastMonthRevenue > 0) {
-    growthRate = ((monthRevenue - lastMonthRevenue) / lastMonthRevenue * 100).toFixed(1);
+    growthRate = (
+      ((monthRevenue - lastMonthRevenue) / lastMonthRevenue) *
+      100
+    ).toFixed(1);
   } else if (monthRevenue > 0) {
     growthRate = 100;
   }
   const growthEl = document.getElementById("growthRate");
-  growthEl.textContent = `${growthRate >= 0 ? '↑' : '↓'} ${Math.abs(growthRate)}%`;
-  growthEl.style.color = growthRate >= 0 ? '#16a34a' : '#dc2626';
+  growthEl.textContent = `${growthRate >= 0 ? "↑" : "↓"} ${Math.abs(
+    growthRate
+  )}%`;
+  growthEl.style.color = growthRate >= 0 ? "#16a34a" : "#dc2626";
 
   // ========== CHARTS ==========
   createDailySalesChart(thisMonthPurchases, currentMonth, currentYear);
@@ -952,15 +932,15 @@ document.addEventListener("DOMContentLoaded", () => {
 // Daily Sales Line Chart
 function createDailySalesChart(purchases, month, year) {
   const container = document.getElementById("dailySalesChart");
-  
+
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const dailySales = {};
-  
+
   for (let day = 1; day <= daysInMonth; day++) {
     dailySales[day] = 0;
   }
 
-  purchases.forEach(p => {
+  purchases.forEach((p) => {
     if (p.timestamp) {
       const day = new Date(p.timestamp).getDate();
       dailySales[day] += p.price;
@@ -975,16 +955,29 @@ function createDailySalesChart(purchases, month, year) {
   let svg = `<div style="overflow-x: auto;"><svg width="${chartWidth}" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}">`;
 
   // Axes
-  svg += `<line x1="${padding.left}" y1="${chartHeight - padding.bottom}" x2="${chartWidth - padding.right}" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
-  svg += `<line x1="${padding.left}" y1="${padding.top}" x2="${padding.left}" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
+  svg += `<line x1="${padding.left}" y1="${chartHeight - padding.bottom}" x2="${
+    chartWidth - padding.right
+  }" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
+  svg += `<line x1="${padding.left}" y1="${padding.top}" x2="${
+    padding.left
+  }" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
 
   // Y-axis labels
   const ySteps = 5;
   for (let i = 0; i <= ySteps; i++) {
     const value = (maxSale / ySteps) * i;
-    const y = chartHeight - padding.bottom - ((value / maxSale) * (chartHeight - padding.top - padding.bottom));
-    svg += `<text x="${padding.left - 10}" y="${y + 5}" text-anchor="end" font-size="10" fill="#666">₹${Math.round(value)}</text>`;
-    svg += `<line x1="${padding.left}" y1="${y}" x2="${chartWidth - padding.right}" y2="${y}" stroke="#f0f0f0" stroke-width="1"/>`;
+    const y =
+      chartHeight -
+      padding.bottom -
+      (value / maxSale) * (chartHeight - padding.top - padding.bottom);
+    svg += `<text x="${padding.left - 10}" y="${
+      y + 5
+    }" text-anchor="end" font-size="10" fill="#666">₹${Math.round(
+      value
+    )}</text>`;
+    svg += `<line x1="${padding.left}" y1="${y}" x2="${
+      chartWidth - padding.right
+    }" y2="${y}" stroke="#f0f0f0" stroke-width="1"/>`;
   }
 
   // Plot line
@@ -994,7 +987,11 @@ function createDailySalesChart(purchases, month, year) {
 
   days.forEach((day, i) => {
     const x = padding.left + i * xStep;
-    const y = chartHeight - padding.bottom - ((dailySales[day] / maxSale) * (chartHeight - padding.top - padding.bottom));
+    const y =
+      chartHeight -
+      padding.bottom -
+      (dailySales[day] / maxSale) *
+        (chartHeight - padding.top - padding.bottom);
 
     if (i === 0) {
       pathData = `M ${x} ${y}`;
@@ -1003,9 +1000,11 @@ function createDailySalesChart(purchases, month, year) {
     }
 
     svg += `<circle cx="${x}" cy="${y}" r="3" fill="#2563eb"/>`;
-    
+
     if (i % 5 === 0) {
-      svg += `<text x="${x}" y="${chartHeight - padding.bottom + 15}" text-anchor="middle" font-size="10" fill="#666">${day}</text>`;
+      svg += `<text x="${x}" y="${
+        chartHeight - padding.bottom + 15
+      }" text-anchor="middle" font-size="10" fill="#666">${day}</text>`;
     }
   });
 
@@ -1017,10 +1016,10 @@ function createDailySalesChart(purchases, month, year) {
 // Weekly Breakdown
 function createWeeklyBreakdown(purchases) {
   const container = document.getElementById("weeklyBreakdown");
-  
+
   const weeks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
-  
-  purchases.forEach(p => {
+
+  purchases.forEach((p) => {
     if (p.timestamp) {
       const day = new Date(p.timestamp).getDate();
       const week = Math.ceil(day / 7);
@@ -1039,13 +1038,25 @@ function createWeeklyBreakdown(purchases) {
   const barWidth = (chartWidth - padding.left - padding.right) / 5 - 20;
 
   Object.entries(weeks).forEach(([week, amount], i) => {
-    const x = padding.left + (i * (chartWidth - padding.left - padding.right) / 5) + 10;
-    const barHeight = (amount / maxWeek) * (chartHeight - padding.top - padding.bottom);
+    const x =
+      padding.left + (i * (chartWidth - padding.left - padding.right)) / 5 + 10;
+    const barHeight =
+      (amount / maxWeek) * (chartHeight - padding.top - padding.bottom);
     const y = chartHeight - padding.bottom - barHeight;
 
     svg += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" fill="#9333ea" rx="6"/>`;
-    svg += `<text x="${x + barWidth/2}" y="${chartHeight - padding.bottom + 20}" text-anchor="middle" font-size="${isMobile ? '10' : '12'}" fill="#666">Week ${week}</text>`;
-    svg += `<text x="${x + barWidth/2}" y="${y - 10}" text-anchor="middle" font-size="${isMobile ? '9' : '11'}" fill="#333" font-weight="600">₹${Math.round(amount).toLocaleString()}</text>`;
+    svg += `<text x="${x + barWidth / 2}" y="${
+      chartHeight - padding.bottom + 20
+    }" text-anchor="middle" font-size="${
+      isMobile ? "10" : "12"
+    }" fill="#666">Week ${week}</text>`;
+    svg += `<text x="${x + barWidth / 2}" y="${
+      y - 10
+    }" text-anchor="middle" font-size="${
+      isMobile ? "9" : "11"
+    }" fill="#333" font-weight="600">₹${Math.round(
+      amount
+    ).toLocaleString()}</text>`;
   });
 
   svg += `</svg>`;
@@ -1055,19 +1066,19 @@ function createWeeklyBreakdown(purchases) {
 // Payment Distribution
 function createPaymentDistribution(purchases) {
   const container = document.getElementById("paymentDistribution");
-  
+
   const paymentMethods = {};
-  purchases.forEach(p => {
+  purchases.forEach((p) => {
     const method = p.paymentMethod || "Unknown";
     paymentMethods[method] = (paymentMethods[method] || 0) + 1;
   });
 
   const colors = {
-    "cash": "#3b82f6",
-    "upi": "#8b5cf6",
-    "card": "#ec4899",
-    "bank": "#06b6d4",
-    "Unknown": "#6b7280"
+    cash: "#3b82f6",
+    upi: "#8b5cf6",
+    card: "#ec4899",
+    bank: "#06b6d4",
+    Unknown: "#6b7280",
   };
 
   const total = purchases.length;
@@ -1084,20 +1095,20 @@ function createPaymentDistribution(purchases) {
   Object.entries(paymentMethods).forEach(([method, count]) => {
     const percentage = (count / total) * 100;
     const sliceAngle = (percentage / 100) * 360;
-    
+
     const startAngle = currentAngle;
     const endAngle = currentAngle + sliceAngle;
-    
-    const x1 = centerX + radius * Math.cos((startAngle - 90) * Math.PI / 180);
-    const y1 = centerY + radius * Math.sin((startAngle - 90) * Math.PI / 180);
-    const x2 = centerX + radius * Math.cos((endAngle - 90) * Math.PI / 180);
-    const y2 = centerY + radius * Math.sin((endAngle - 90) * Math.PI / 180);
-    
+
+    const x1 = centerX + radius * Math.cos(((startAngle - 90) * Math.PI) / 180);
+    const y1 = centerY + radius * Math.sin(((startAngle - 90) * Math.PI) / 180);
+    const x2 = centerX + radius * Math.cos(((endAngle - 90) * Math.PI) / 180);
+    const y2 = centerY + radius * Math.sin(((endAngle - 90) * Math.PI) / 180);
+
     const largeArc = sliceAngle > 180 ? 1 : 0;
     const color = colors[method] || colors["Unknown"];
-    
+
     html += `<path d="M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z" fill="${color}" stroke="white" stroke-width="3"/>`;
-    
+
     currentAngle = endAngle;
   });
 
@@ -1106,11 +1117,13 @@ function createPaymentDistribution(purchases) {
   Object.entries(paymentMethods).forEach(([method, count]) => {
     const percentage = ((count / total) * 100).toFixed(1);
     const color = colors[method] || colors["Unknown"];
-    
+
     html += `
       <div style="display: flex; align-items: center; gap: 10px;">
         <div style="width: 24px; height: 24px; background: ${color}; border-radius: 4px; flex-shrink: 0;"></div>
-        <span style="font-size: ${isMobile ? '14px' : '15px'}; color: #333; font-weight: 500;">${method}: ${count} (${percentage}%)</span>
+        <span style="font-size: ${
+          isMobile ? "14px" : "15px"
+        }; color: #333; font-weight: 500;">${method}: ${count} (${percentage}%)</span>
       </div>
     `;
   });
@@ -1122,10 +1135,11 @@ function createPaymentDistribution(purchases) {
 // Top Customers Leaderboard
 function createTopCustomers(purchases, customers) {
   const container = document.getElementById("topCustomers");
-  
+
   const customerSpending = {};
-  purchases.forEach(p => {
-    customerSpending[p.customerNumber] = (customerSpending[p.customerNumber] || 0) + p.price;
+  purchases.forEach((p) => {
+    customerSpending[p.customerNumber] =
+      (customerSpending[p.customerNumber] || 0) + p.price;
   });
 
   const sorted = Object.entries(customerSpending)
@@ -1139,10 +1153,12 @@ function createTopCustomers(purchases, customers) {
 
   let html = "";
   sorted.forEach(([number, amount], index) => {
-    const customer = customers.find(c => c.number === number);
+    const customer = customers.find((c) => c.number === number);
     const customerName = customer ? customer.name : "Unknown";
-    const orderCount = purchases.filter(p => p.customerNumber === number).length;
-    
+    const orderCount = purchases.filter(
+      (p) => p.customerNumber === number
+    ).length;
+
     let rankClass = "rankOther";
     if (index === 0) rankClass = "rank1";
     else if (index === 1) rankClass = "rank2";
@@ -1166,19 +1182,19 @@ function createTopCustomers(purchases, customers) {
 // Best Selling Products
 function createBestProducts(purchases) {
   const container = document.getElementById("bestProducts");
-  
+
   const productStats = {};
-  
-  purchases.forEach(p => {
+
+  purchases.forEach((p) => {
     // Handle both old and new item format
     if (Array.isArray(p.items)) {
       // New format: array of items
-      p.items.forEach(item => {
+      p.items.forEach((item) => {
         const itemName = item.name || "Unknown";
         if (!productStats[itemName]) {
           productStats[itemName] = { revenue: 0, quantity: 0 };
         }
-        productStats[itemName].revenue += (item.quantity * item.price) || 0;
+        productStats[itemName].revenue += item.quantity * item.price || 0;
         productStats[itemName].quantity += item.quantity || 0;
       });
     } else {
@@ -1206,7 +1222,7 @@ function createBestProducts(purchases) {
   let html = "";
   sorted.forEach(([product, stats]) => {
     const percentage = (stats.revenue / maxRevenue) * 100;
-    
+
     html += `
       <div class="productBar">
         <div class="productHeader">
@@ -1228,11 +1244,19 @@ function createBestProducts(purchases) {
 // Sales by Day of Week
 function createSalesByDay(purchases) {
   const container = document.getElementById("salesByDay");
-  
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
   const daySales = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
 
-  purchases.forEach(p => {
+  purchases.forEach((p) => {
     if (p.timestamp) {
       const day = new Date(p.timestamp).getDay();
       daySales[day] += p.price;
@@ -1244,7 +1268,7 @@ function createSalesByDay(purchases) {
   let html = "";
   Object.entries(daySales).forEach(([day, amount]) => {
     const percentage = (amount / maxDay) * 100;
-    
+
     html += `
       <div class="dayItem">
         <div class="dayName">${dayNames[day]}</div>
@@ -1261,18 +1285,23 @@ function createSalesByDay(purchases) {
 
 // Pending Payments Tracker
 function createPendingPayments(purchases, customers) {
-  const pendingPurchases = purchases.filter(p => p.payment === "unpaid");
-  
+  const pendingPurchases = purchases.filter((p) => p.payment === "unpaid");
+
   const totalPending = pendingPurchases.reduce((sum, p) => sum + p.price, 0);
-  document.getElementById("totalPending").textContent = `₹${totalPending.toLocaleString()}`;
+  document.getElementById(
+    "totalPending"
+  ).textContent = `₹${totalPending.toLocaleString()}`;
 
   const customersPending = {};
-  pendingPurchases.forEach(p => {
-    customersPending[p.customerNumber] = (customersPending[p.customerNumber] || 0) + p.price;
+  pendingPurchases.forEach((p) => {
+    customersPending[p.customerNumber] =
+      (customersPending[p.customerNumber] || 0) + p.price;
   });
 
   const pendingCount = Object.keys(customersPending).length;
-  document.getElementById("pendingCount").textContent = `${pendingCount} customer${pendingCount !== 1 ? 's' : ''}`;
+  document.getElementById(
+    "pendingCount"
+  ).textContent = `${pendingCount} customer${pendingCount !== 1 ? "s" : ""}`;
 
   const container = document.getElementById("pendingList");
 
@@ -1285,7 +1314,7 @@ function createPendingPayments(purchases, customers) {
 
   let html = "";
   sorted.forEach(([number, amount]) => {
-    const customer = customers.find(c => c.number === number);
+    const customer = customers.find((c) => c.number === number);
     const customerName = customer ? customer.name : "Unknown";
 
     html += `
@@ -1302,23 +1331,26 @@ function createPendingPayments(purchases, customers) {
 // Monthly Target Progress
 function createTargetProgress(achieved, currentMonth) {
   const target = 150000; // ₹1,50,000 target
-  
-  document.getElementById("targetAmount").textContent = `₹${target.toLocaleString()}`;
-  document.getElementById("achievedAmount").textContent = `₹${achieved.toLocaleString()}`;
+
+  document.getElementById(
+    "targetAmount"
+  ).textContent = `₹${target.toLocaleString()}`;
+  document.getElementById(
+    "achievedAmount"
+  ).textContent = `₹${achieved.toLocaleString()}`;
 
   const percentage = Math.min((achieved / target) * 100, 100);
-  
+
   document.getElementById("progressFill").style.width = `${percentage}%`;
-  document.getElementById("progressText").textContent = `${percentage.toFixed(1)}%`;
+  document.getElementById("progressText").textContent = `${percentage.toFixed(
+    1
+  )}%`;
 
   // Calculate remaining days in month
   const now = new Date();
   const lastDay = new Date(now.getFullYear(), currentMonth + 1, 0).getDate();
   const remainingDays = lastDay - now.getDate();
-  document.getElementById("remainingDays").textContent = `${remainingDays} days`;
+  document.getElementById(
+    "remainingDays"
+  ).textContent = `${remainingDays} days`;
 }
-
-
-
-
-

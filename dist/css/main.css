@@ -265,7 +265,8 @@
   display: block;
   margin-bottom: 0.6rem;
 }
-.homePage .boxStates .box i, .homePage .boxStates .box span {
+.homePage .boxStates .box i,
+.homePage .boxStates .box span {
   display: block;
   background-color: transparent;
 }
@@ -1768,7 +1769,7 @@
   margin-top: 35px;
   background: #f5f6fa;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   border-radius: 60px;
   padding: 25px 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -3498,7 +3499,8 @@ nav.show ~ #overlay {
   background: transparent;
   color: #F5F6FA;
 }
-.profMain h3, .profMain p {
+.profMain h3,
+.profMain p {
   margin: 5px 0;
   text-align: center;
 }

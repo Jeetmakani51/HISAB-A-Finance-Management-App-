@@ -73,24 +73,6 @@
   });
 });*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*document.addEventListener("DOMContentLoaded", () => {
   // Get selected customer from localStorage
   const selectedCustomer = JSON.parse(localStorage.getItem("selectedCustomer"));
@@ -165,18 +147,6 @@
     itemsContainer.appendChild(itemCard);
   });
 });*/
-
-
-
-
-
-
-
-
-
-
-
-
 
 /*document.addEventListener("DOMContentLoaded", () => {
   // Get selected customer from localStorage
@@ -268,23 +238,12 @@
 });
 */
 
-
-
-
-
-
-
-
-
-
-
-
 // new
 
 document.addEventListener("DOMContentLoaded", () => {
   // Get selected customer from localStorage
   const selectedCustomer = JSON.parse(localStorage.getItem("selectedCustomer"));
-  
+
   if (!selectedCustomer) {
     alert("No customer selected!");
     window.location.href = "history.html";
@@ -294,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Get all purchases for this customer
   const allPurchases = JSON.parse(localStorage.getItem("purchases")) || [];
   const customerPurchases = allPurchases
-    .filter(p => p.customerNumber === selectedCustomer.number)
+    .filter((p) => p.customerNumber === selectedCustomer.number)
     .sort((a, b) => b.timestamp - a.timestamp); // Sort by date (newest first)
 
   // Function to calculate totals
@@ -302,9 +261,13 @@ document.addEventListener("DOMContentLoaded", () => {
     let totalSpent = 0;
     let pendingAmount = 0;
 
-    customerPurchases.forEach(purchase => {
+    customerPurchases.forEach((purchase) => {
       totalSpent += purchase.price;
-      if (purchase.payment === "unpaid" || purchase.payment === "pending" || purchase.payment === "Pending") {
+      if (
+        purchase.payment === "unpaid" ||
+        purchase.payment === "pending" ||
+        purchase.payment === "Pending"
+      ) {
         pendingAmount += purchase.price;
       }
     });
@@ -315,15 +278,19 @@ document.addEventListener("DOMContentLoaded", () => {
   // Function to update the display
   function updateDisplay() {
     const { totalSpent, pendingAmount } = calculateTotals();
-    
-    document.querySelector(".custTotalSpent span").textContent = `₹${totalSpent.toLocaleString()}`;
-    document.querySelector(".custAmountPending span").textContent = `₹${pendingAmount.toLocaleString()}`;
+
+    document.querySelector(
+      ".custTotalSpent span"
+    ).textContent = `₹${totalSpent.toLocaleString()}`;
+    document.querySelector(
+      ".custAmountPending span"
+    ).textContent = `₹${pendingAmount.toLocaleString()}`;
   }
 
   // Function to toggle payment status
   function togglePaymentStatus(purchaseIndex) {
     const purchase = customerPurchases[purchaseIndex];
-    
+
     // Toggle between paid and pending
     if (purchase.payment === "paid" || purchase.payment === "Paid") {
       purchase.payment = "pending";
@@ -333,11 +300,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Update the purchase in the main purchases array
     const allPurchases = JSON.parse(localStorage.getItem("purchases")) || [];
-    const mainIndex = allPurchases.findIndex(p => 
-      p.customerNumber === purchase.customerNumber && 
-      p.timestamp === purchase.timestamp
+    const mainIndex = allPurchases.findIndex(
+      (p) =>
+        p.customerNumber === purchase.customerNumber &&
+        p.timestamp === purchase.timestamp
     );
-    
+
     if (mainIndex !== -1) {
       allPurchases[mainIndex].payment = purchase.payment;
       localStorage.setItem("purchases", JSON.stringify(allPurchases));
@@ -361,15 +329,19 @@ document.addEventListener("DOMContentLoaded", () => {
     customerPurchases.forEach((purchase, index) => {
       const itemCard = document.createElement("div");
       itemCard.classList.add("itemCard");
-      
+
       // Determine status class and text
       let statusClass = "pending";
       let statusText = "Pending";
-      
+
       if (purchase.payment === "paid" || purchase.payment === "Paid") {
         statusClass = "paid";
         statusText = "Paid";
-      } else if (purchase.payment === "unpaid" || purchase.payment === "pending" || purchase.payment === "Pending") {
+      } else if (
+        purchase.payment === "unpaid" ||
+        purchase.payment === "pending" ||
+        purchase.payment === "Pending"
+      ) {
         statusClass = "pending";
         statusText = "Pending";
       }
@@ -378,13 +350,15 @@ document.addEventListener("DOMContentLoaded", () => {
       let itemDisplay = "";
       if (Array.isArray(purchase.items)) {
         // New format: array of items
-        itemDisplay = purchase.items.map(item => `${item.name} (x${item.quantity})`).join(", ");
+        itemDisplay = purchase.items
+          .map((item) => `${item.name} (x${item.quantity})`)
+          .join(", ");
       } else if (purchase.itemsText) {
         // Use pre-formatted text
         itemDisplay = purchase.itemsText;
       } else {
         // Old format: simple string
-        const quantity = purchase.quantity > 0 ? `(x${purchase.quantity})` : '';
+        const quantity = purchase.quantity > 0 ? `(x${purchase.quantity})` : "";
         itemDisplay = `${purchase.items || "No item specified"} ${quantity}`;
       }
 
@@ -407,15 +381,16 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initial setup
   document.querySelector(".custName").textContent = selectedCustomer.name;
   document.querySelector(".custPhoneNo").textContent = selectedCustomer.number;
-  
+
   if (customerPurchases.length > 0) {
-    document.querySelector(".custHistory .date").textContent = `Last Order: ${customerPurchases[0].date}`;
+    document.querySelector(
+      ".custHistory .date"
+    ).textContent = `Last Order: ${customerPurchases[0].date}`;
   } else {
-    document.querySelector(".custHistory .date").textContent = "Last Order: No orders yet";
+    document.querySelector(".custHistory .date").textContent =
+      "Last Order: No orders yet";
   }
 
   updateDisplay();
   renderPurchases();
 });
-
-

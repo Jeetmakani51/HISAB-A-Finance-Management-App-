@@ -1,18 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Details</title>
-     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-     <link href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/main.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
     <script src="details.js"></script>
     <script src="history.js"></script>
-    
-</head>
-<body>
-   <!-- <div class="details">
+  </head>
+  <body>
+    <!-- <div class="details">
         <div class="TopDetails">
             <a href="home.html"><i class="fa-solid fa-arrow-left"></i></a>
             <h2>Details</h2>
@@ -51,7 +59,6 @@
         </div>
     </div>-->
 
-    
     <!---<div class="details">
     <div class="TopDetails">
         <a href="home.html"><i class="fa-solid fa-arrow-left"></i></a>
@@ -111,88 +118,132 @@
     </div>
 </div>-->
 
-
-
-<div class="details">
-    <div class="TopDetails">
+    <div class="details">
+      <div class="TopDetails">
         <a href="home.html"><i class="fa-solid fa-arrow-left"></i></a>
         <h2>Details</h2>
-        <img class="Logo" src="bcgLogo.png" alt="">
-    </div>
-    <hr class="section-divider">
-    <div class="formDetails">
+        <img class="Logo" src="bcgLogo.png" alt="" />
+      </div>
+      <hr class="section-divider" />
+      <div class="formDetails">
         <form>
-            <label for="fname">Customer Name:</label>
-            <input type="text" id="fname" name="fname" placeholder="Enter Name">
-            
-            <label for="Number">Number:</label>
-            <input type="number" id="Number" name="Number" placeholder="Mobile Number">
-            
-            <!-- Dynamic Items Section -->
-            <div class="itemsSection">
-                <div class="itemsSectionHeader">
-                    <label>Items Bought:</label>
-                    <button type="button" class="addItemBtn">
-                        <i class="fa-solid fa-plus"></i> Add Item
-                    </button>
-                </div>
-                
-                <div id="itemsList">
-                    <!-- First item row (default) -->
-                    <div class="itemRow" data-item-index="0">
-                        <div class="itemInputs">
-                            <input type="text" class="itemName" placeholder="Item Name" required>
-                            <input type="number" class="itemQuantity" placeholder="Qty" min="1" value="1" required>
-                            <input type="number" class="itemPrice" placeholder="Price" min="0" step="0.01" required>
-                            <button type="button" class="removeItemBtn" title="Remove Item">
-                                <i class="fa-solid fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Total Price Display -->
-                <div class="totalPriceDisplay">
-                    <span>Total Amount:</span>
-                    <span class="totalAmount">₹0</span>
-                </div>
+          <label for="fname">Customer Name:</label>
+          <input type="text" id="fname" name="fname" placeholder="Enter Name" />
+
+          <label for="Number">Number:</label>
+          <input
+            type="number"
+            id="Number"
+            name="Number"
+            placeholder="Mobile Number"
+          />
+
+          <!-- Dynamic Items Section -->
+          <div class="itemsSection">
+            <div class="itemsSectionHeader">
+              <label>Items Bought:</label>
+              <button type="button" class="addItemBtn">
+                <i class="fa-solid fa-plus"></i> Add Item
+              </button>
             </div>
-            
-            <!-- Payment Status Toggle -->
-            <label for="PaymentStatus">Payment Status:</label>
-            <div class="paymentToggle">
-                <button type="button" class="toggleBtn paidBtn">
-                    <i class="fa-solid fa-circle-check"></i>
-                    Paid
-                </button>
-                <button type="button" class="toggleBtn unpaidBtn active">
-                    <i class="fa-solid fa-clock"></i>
-                    Unpaid
-                </button>
+
+            <div id="itemsList">
+              <!-- First item row (default) -->
+              <div class="itemRow" data-item-index="0">
+                <div class="itemInputs">
+                  <input
+                    type="text"
+                    class="itemName"
+                    placeholder="Item Name"
+                    required
+                  />
+                  <input
+                    type="number"
+                    class="itemQuantity"
+                    placeholder="Qty"
+                    min="1"
+                    value="1"
+                    required
+                  />
+                  <input
+                    type="number"
+                    class="itemPrice"
+                    placeholder="Price"
+                    min="0"
+                    step="0.01"
+                    required
+                  />
+                  <button
+                    type="button"
+                    class="removeItemBtn"
+                    title="Remove Item"
+                  >
+                    <i class="fa-solid fa-trash"></i>
+                  </button>
+                </div>
+              </div>
             </div>
-            
-            <label for="PaymentMethod">Payment Method:</label>
-            <div class="payment-options">
-                <label><input type="radio" name="payment" value="cash" checked> Cash</label>
-                <label><input type="radio" name="payment" value="upi"> UPI</label>
-                <label><input type="radio" name="payment" value="card"> Card</label>
-                <label><input type="radio" name="payment" value="bank"> Bank</label>
+
+            <!-- Total Price Display -->
+            <div class="totalPriceDisplay">
+              <span>Total Amount:</span>
+              <span class="totalAmount">₹0</span>
             </div>
-            
-            <label for="DueDate">Due Date:</label>
-            <input type="date" id="DueDate" name="DueDate" placeholder="Last Date For Delivery">
-            
-            <label for="ReturnDate">Return Date<h4>(If Late Then Penalty)</h4></label>
-            <input type="date" id="ReturnDate" name="ReturnDate" placeholder="Return Date Of Items">
+          </div>
+
+          <!-- Payment Status Toggle -->
+          <label for="PaymentStatus">Payment Status:</label>
+          <div class="paymentToggle">
+            <button type="button" class="toggleBtn paidBtn">
+              <i class="fa-solid fa-circle-check"></i>
+              Paid
+            </button>
+            <button type="button" class="toggleBtn unpaidBtn active">
+              <i class="fa-solid fa-clock"></i>
+              Unpaid
+            </button>
+          </div>
+
+          <label for="PaymentMethod">Payment Method:</label>
+          <div class="payment-options">
+            <label
+              ><input type="radio" name="payment" value="cash" checked />
+              Cash</label
+            >
+            <label><input type="radio" name="payment" value="upi" /> UPI</label>
+            <label
+              ><input type="radio" name="payment" value="card" /> Card</label
+            >
+            <label
+              ><input type="radio" name="payment" value="bank" /> Bank</label
+            >
+          </div>
+
+          <label for="DueDate">Due Date:</label>
+          <input
+            type="date"
+            id="DueDate"
+            name="DueDate"
+            placeholder="Last Date For Delivery"
+          />
+
+          <label for="ReturnDate"
+            >Return Date
+            <h4>(If Late Then Penalty)</h4></label
+          >
+          <input
+            type="date"
+            id="ReturnDate"
+            name="ReturnDate"
+            placeholder="Return Date Of Items"
+          />
         </form>
-    </div>
-    <div class="lowerDetails">
+      </div>
+      <div class="lowerDetails">
         <button type="button" class="saveBtn">Save</button>
         <button type="button" class="cancelBtn">Cancel</button>
         <button type="button" class="billBtn">Bill PDF</button>
+      </div>
     </div>
-</div>
-
-
-</body>
+  </body>
 </html>

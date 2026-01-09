@@ -1,53 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-     <link href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
     <script src="details.js"></script>
     <script src="history.js"></script>
-    
+
     <title>home page</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="homePage">
-        <div class="topBar">
-            <button id ="openSliders" onclick="openSidebar()"><svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#c9c9c9"><path d="M165.13-254.62q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.86q7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.87q-7.22 7.12-17.9 7.12H165.13Zm0-200.25q-10.68 0-17.9-7.27-7.23-7.26-7.23-17.99 0-10.74 7.23-17.87 7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.27 7.23 7.26 7.23 17.99 0 10.74-7.23 17.87-7.22 7.13-17.9 7.13H165.13Zm0-200.26q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.87q7.22-7.12 17.9-7.12h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.86q-7.22 7.13-17.9 7.13H165.13Z"/></svg></button>
-            <nav id = "navbar">
-                <ul>
-                    <li><button id = "closeSliders" onclick="closeSidebar()"><svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#c9c9c9"><path d="m480-444.62-209.69 209.7q-7.23 7.23-17.5 7.42-10.27.19-17.89-7.42-7.61-7.62-7.61-17.7 0-10.07 7.61-17.69L444.62-480l-209.7-209.69q-7.23-7.23-7.42-17.5-.19-10.27 7.42-17.89 7.62-7.61 17.7-7.61 10.07 0 17.69 7.61L480-515.38l209.69-209.7q7.23-7.23 17.5-7.42 10.27-.19 17.89 7.42 7.61 7.62 7.61 17.7 0 10.07-7.61 17.69L515.38-480l209.7 209.69q7.23 7.23 7.42 17.5.19 10.27-7.42 17.89-7.62 7.61-17.7 7.61-10.07 0-17.69-7.61L480-444.62Z"/></svg></button></li>
-                    <li class = "profile-li"><a href="">Profile</a></li>
-                    <li class = "Settings-li"><a href="">Settings</a></li>
-                    <li class = "Logout-li"><a href="">Logout</a></li>
-                </ul>
-            </nav>
-            <div id="overlay" onclick = "closeSidebar()"></div>
-            <h2>HISAB</h2>
-            <img class = "Logo" src="bcgLogo.png" alt="">
+      <div class="topBar">
+        <button id="openSliders" onclick="openSidebar()">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="40px"
+            viewBox="0 -960 960 960"
+            width="40px"
+            fill="#c9c9c9"
+          >
+            <path
+              d="M165.13-254.62q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.86q7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.87q-7.22 7.12-17.9 7.12H165.13Zm0-200.25q-10.68 0-17.9-7.27-7.23-7.26-7.23-17.99 0-10.74 7.23-17.87 7.22-7.13 17.9-7.13h629.74q10.68 0 17.9 7.27 7.23 7.26 7.23 17.99 0 10.74-7.23 17.87-7.22 7.13-17.9 7.13H165.13Zm0-200.26q-10.68 0-17.9-7.26-7.23-7.26-7.23-18t7.23-17.87q7.22-7.12 17.9-7.12h629.74q10.68 0 17.9 7.26 7.23 7.26 7.23 18t-7.23 17.86q-7.22 7.13-17.9 7.13H165.13Z"
+            />
+          </svg>
+        </button>
+        <nav id="navbar">
+          <ul>
+            <li>
+              <button id="closeSliders" onclick="closeSidebar()">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  height="40px"
+                  viewBox="0 -960 960 960"
+                  width="40px"
+                  fill="#c9c9c9"
+                >
+                  <path
+                    d="m480-444.62-209.69 209.7q-7.23 7.23-17.5 7.42-10.27.19-17.89-7.42-7.61-7.62-7.61-17.7 0-10.07 7.61-17.69L444.62-480l-209.7-209.69q-7.23-7.23-7.42-17.5-.19-10.27 7.42-17.89 7.62-7.61 17.7-7.61 10.07 0 17.69 7.61L480-515.38l209.69-209.7q7.23-7.23 17.5-7.42 10.27-.19 17.89 7.42 7.61 7.62 7.61 17.7 0 10.07-7.61 17.69L515.38-480l209.7 209.69q7.23 7.23 7.42 17.5.19 10.27-7.42 17.89-7.62 7.61-17.7 7.61-10.07 0-17.69-7.61L480-444.62Z"
+                  />
+                </svg>
+              </button>
+            </li>
+            <li class="profile-li"><a href="profile.html">Profile</a></li>
+            <li class="Settings-li"><a href="">Settings</a></li>
+            <li class="Logout-li"><a href="">Logout</a></li>
+          </ul>
+        </nav>
+        <div id="overlay" onclick="closeSidebar()"></div>
+        <h2>HISAB</h2>
+        <img class="Logo" src="bcgLogo.png" alt="" />
+      </div>
+      <hr class="divider" />
+      <div class="boxStates">
+        <div class="box">
+          <a href="todaySale.html"
+            ><i class="fa-solid fa-bag-shopping"></i
+            ><span>Today's Sales</span></a
+          >
         </div>
-        <hr class = "divider">
-        <div class="boxStates">
-            <div class="box"><a href="todaySale.html"><i class="fa-solid fa-bag-shopping"></i><span>Today's Sales</span></a></div>
-            <div class="box"><a href="monthlysales.html"><i class="fa-solid fa-chart-simple"></i><span>Monthly Sales</span></a></div>
-            <div class="box"><a href="history.html"><i class="fa-solid fa-circle-user"></i><span>Total Customers</span></a></div>
-            <div class="box"><a href="details.html"><i class="fa-solid fa-plus"></i><span>Add New Sale</span></a></div>
-            <div class="box"><a href="reports.html"><i class="fa-solid fa-chart-pie"></i><span>View Reports</span></a></div>
-            <div class="box"><i class="fa-solid fa-magnifying-glass"></i><span>Search</span></div>
+        <div class="box">
+          <a href="monthlysales.html"
+            ><i class="fa-solid fa-chart-simple"></i
+            ><span>Monthly Sales</span></a
+          >
         </div>
-        <div class="liveLineChart">
+        <div class="box">
+          <a href="history.html"
+            ><i class="fa-solid fa-circle-user"></i
+            ><span>Total Customers</span></a
+          >
+        </div>
+        <div class="box">
+          <a href="details.html"
+            ><i class="fa-solid fa-plus"></i><span>Add New Sale</span></a
+          >
+        </div>
+        <div class="box">
+          <a href="reports.html"
+            ><i class="fa-solid fa-chart-pie"></i><span>View Reports</span></a
+          >
+        </div>
+        <div class="box">
+          <i class="fa-solid fa-magnifying-glass"></i><span>Search</span>
+        </div>
+      </div>
+      <div class="liveLineChart">
         <!-- to be worked on later after reports page is ready -->
-        </div>
-        <div class="recentOrders">
-            <h2>Recent Orders</h2>
-            <br>
-            <div class="customer">customer 1</div>
-            <div class="customer">customer 2</div>
-            <div class="customer">customer 3</div>
-        </div>
+      </div>
+      <div class="recentOrders">
+        <h2>Recent Orders</h2>
+        <br />
+        <div class="customer">customer 1</div>
+        <div class="customer">customer 2</div>
+        <div class="customer">customer 3</div>
+      </div>
     </div>
     <script src="home.js"></script>
     <script src="nav.js"></script>
-</body>
+  </body>
 </html>

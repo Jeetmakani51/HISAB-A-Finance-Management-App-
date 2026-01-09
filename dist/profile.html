@@ -1,81 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="./css/main.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
     <title>Profile</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="profContainer">
-       <div class="profHeaderConst">
-           <a href="home.html"><i class="fa-solid fa-arrow-left"></i></a>
-           <h1>Profile</h1>
-           <h2 style = "color : #4A90E2;">Edit</h2>
-       </div>
-        
+      <div class="profHeaderConst">
+        <a href="home.html"><i class="fa-solid fa-arrow-left"></i></a>
+        <h1>Profile</h1>
+        <h2 style="color: #4a90e2">Edit</h2>
+      </div>
 
-        <div class="profMain">
-
-           <div class="profInitials">
-               <h1>BCG</h1>
-           </div>
-
-           <h3>Bharti Costume Gallery</h3>
-
-           <p>Jeet Makani</p>
-       </div>
-
-        <div class="profInfo">
-
-           <div class="inputRow">
-               <i class="fa-solid fa-phone"></i>
-               <input type="text" id="profMobile" placeholder="Enter Phone Number">
-           </div>
-
-           <div class="inputRow">
-               <i class="fa-solid fa-location-dot"></i>
-               <input type="text" id="profLoc" placeholder="Enter Your Address">
-           </div>
-
-           <div class="inputRow">
-               <i class="fa-solid fa-shop"></i>
-               <input type="text" id="profAboutShop" placeholder="Type Of Shop">
-           </div>
-
-           <div class="inputRow">
-               <i class="fa-regular fa-file-lines"></i>
-               <input type="text" id="profGST" placeholder="Enter Your GST Number">
-           </div>
-
+      <div class="profMain">
+        <div class="profInitials">
+          <h1>BCG</h1>
         </div>
 
-        <div class="TotSaleRow">
+        <h3>Bharti Costume Gallery</h3>
+      </div>
 
-           <div class="rowItem">
-               <span>This Month Sale</span>
-               <span>Rs500</span>
-           </div>
-
-           <div class="rowItem">
-               <span>Total Customers</span>
-               <span>Rs1000</span>
-           </div>
-
-           <div class="rowItem">
-               <span>Invoices Generated</span>
-               <span>Rs1000</span>
-           </div>
-
+      <div class="profInfo">
+        <div class="inputRow">
+          <i class="fa-solid fa-phone"></i>
+          <input type="text" id="profMobile" placeholder="Enter Phone Number" />
         </div>
 
-       <div class="ProfLower">
-           <div class="ProSave" id = "saveBTN">
-               <button>Save Changes</button>
-            </div>
-       </div>
+        <div class="inputRow">
+          <i class="fa-solid fa-location-dot"></i>
+          <input type="text" id="profLoc" placeholder="Enter Your Address" />
+        </div>
+
+        <div class="inputRow">
+          <i class="fa-solid fa-shop"></i>
+          <input type="text" id="profAboutShop" placeholder="Type Of Shop" />
+        </div>
+
+        <div class="inputRow">
+          <i class="fa-regular fa-file-lines"></i>
+          <input type="text" id="profGST" placeholder="Enter Your GST Number" />
+        </div>
+      </div>
+
+      <div class="TotSaleRow">
+        <div class="rowItem">
+          <span>This Month Sale</span>
+          <span id="monthRevenue">₹0</span>
+        </div>
+
+        <div class="rowItem">
+          <span>Total Customers</span>
+          <span id="totalCustomers">₹0</span>
+        </div>
+
+        <div class="rowItem">
+          <span>Invoices Generated</span>
+          <span id="totalInvoices">₹1000</span>
+        </div>
+      </div>
+
+      <div class="ProfLower">
+        <div class="ProSave" id="saveBTN">
+          <button>Save Changes</button>
+        </div>
+      </div>
     </div>
     <script src="profile.js"></script>
-</body>
+    <script src="monthlysales.js"></script>
+  </body>
 </html>

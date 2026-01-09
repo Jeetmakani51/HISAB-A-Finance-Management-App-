@@ -1,15 +1,15 @@
 @import "var";
 @import "mixin";
 
-
-* { 
-  margin : 0;
-  padding : 0;
-  box-sizing: border-box; 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
   background-color: $common-bg;
 }
 :root {
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -50,8 +50,12 @@
       width: 40px;
       height: 40px;
       border-radius: 10px;
-      background: linear-gradient(135deg, $secondary-purple 0%, $primary-blue 100%);
-      box-shadow: 0 6px 16px rgba(74,144,226,0.14);
+      background: linear-gradient(
+        135deg,
+        $secondary-purple 0%,
+        $primary-blue 100%
+      );
+      box-shadow: 0 6px 16px rgba(74, 144, 226, 0.14);
     }
     .logo-text {
       font-weight: 700;
@@ -72,7 +76,9 @@
 }
 
 /* Form */
-.login-form { margin-top: 10px; }
+.login-form {
+  margin-top: 10px;
+}
 
 .field {
   display: block;
@@ -98,7 +104,7 @@
   }
   input:focus {
     border-color: $primary-blue;
-    box-shadow: 0 6px 18px rgba(74,144,226,0.12);
+    box-shadow: 0 6px 18px rgba(74, 144, 226, 0.12);
   }
   .field-note {
     display: block;
@@ -128,9 +134,13 @@
     cursor: pointer;
     border-radius: 8px;
     transition: background 120ms ease;
-    &:hover { background: rgba(0,0,0,0.04); }
+    &:hover {
+      background: rgba(0, 0, 0, 0.04);
+    }
   }
-  input { flex: 1; }
+  input {
+    flex: 1;
+  }
 }
 
 /* actions */
@@ -146,7 +156,11 @@
   gap: 8px;
   align-items: center;
   color: $text-secondary;
-  input { width: 16px; height: 16px; accent-color: $primary-blue; }
+  input {
+    width: 16px;
+    height: 16px;
+    accent-color: $primary-blue;
+  }
 }
 
 /* buttons */
@@ -164,12 +178,12 @@
   background: $primary-blue;
   color: #fff;
   border-color: $primary-blue;
-  box-shadow: 0 8px 20px rgba(74,144,226,0.12);
+  box-shadow: 0 8px 20px rgba(74, 144, 226, 0.12);
 }
 .btn.ghost {
   background: transparent;
   color: $primary-blue;
-  border: 1px solid rgba(74,144,226,0.12);
+  border: 1px solid rgba(74, 144, 226, 0.12);
 }
 
 /* feedback */
@@ -181,79 +195,88 @@
 }
 
 /* footer */
-.login-footer { margin-top: 12px; display:flex; justify-content:center; }
+.login-footer {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
 
 /* responsiveness - mobile first already */
 @media (min-width: 480px) {
-  .login-card { padding: 28px; }
-  .title { font-size: 22px; }
+  .login-card {
+    padding: 28px;
+  }
+  .title {
+    font-size: 22px;
+  }
 }
 
 // home page
 
-.homePage{
+.homePage {
   max-width: 390px;
-  margin : 0 auto;
+  margin: 0 auto;
   background-color: $common-bg;
-  .topBar{
-    display : flex;
-    justify-content : center;
+  .topBar {
+    display: flex;
+    justify-content: center;
     align-items: center;
-    padding : 20px;
+    padding: 20px;
     font-size: 32px;
     color: black;
     border-bottom: $h-divider;
-    h2{
+    h2 {
       font-size: 24px;
-      margin : 0;
-      font-family: "Fontdiner Swanky",cursive;
+      margin: 0;
+      font-family: "Fontdiner Swanky", cursive;
     }
-    .Logo{
-      width : 100px;
-      height : auto;
+    .Logo {
+      width: 100px;
+      height: auto;
       margin-left: 5vw;
     }
   }
-  .divider{
-    border : none;
-    height : 1px;
+  .divider {
+    border: none;
+    height: 1px;
     background-color: $h-divider;
-    margin : 10px 0;
+    margin: 10px 0;
   }
-  .boxStates{
-    display : grid;
-    grid-template-columns: repeat(auto-fit,minmax(100px,1fr));
-    gap : 1rem;
-    padding : 1rem;
-    width : 100%;
+  .boxStates {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    padding: 1rem;
+    width: 100%;
 
-    .box{
+    .box {
       @include center;
       //aspect-ratio: 1/1;
       background-color: $box-bg;
       font-weight: 12px;
       border-radius: 10px;
-      padding : 1.5rem 0.5rem;
-      i{
+      padding: 1.5rem 0.5rem;
+      i {
         background-color: $box-bg;
-        padding : 0;
+        padding: 0;
         @include center;
         font-size: 2rem;
         line-height: 1;
         display: block;
         margin-bottom: 0.6rem;
       }
-      i,span{
+      i,
+      span {
         display: block;
         background-color: transparent;
       }
-      span{
+      span {
         font-size: 0.85rem;
         text-align: center;
         line-height: 1.2;
-        color : $h-secondary;
+        color: $h-secondary;
       }
-       a {
+      a {
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -266,25 +289,25 @@
       }
     }
   }
-  .liveLineChart{
+  .liveLineChart {
     @include center;
-    width : 90%;
-    height : 35vh;
-    margin : 2rem auto;
+    width: 90%;
+    height: 35vh;
+    margin: 2rem auto;
     background-color: $box-bg;
     border-radius: 20px;
   }
-  .recentOrders{
-    h2{
+  .recentOrders {
+    h2 {
       font-size: 24px;
       margin-left: 2rem;
-      color : $h-primary;
+      color: $h-primary;
     }
-    .customer{
-       @include left;
-      width : 80%;
-      height : 5vh;
-      color : $h-secondary;
+    .customer {
+      @include left;
+      width: 80%;
+      height: 5vh;
+      color: $h-secondary;
       font-size: 20px;
       margin: 0 auto 1rem;
       border-bottom: 1px solid $h-divider;
@@ -293,8 +316,7 @@
   }
 }
 
- // form
-
+// form
 
 /*.details {
   background-color: $common-bg;
@@ -575,7 +597,6 @@
   }
 }*/
 
-
 .details {
   background-color: $common-bg;
   padding: 20px;
@@ -737,13 +758,9 @@
                 padding: 10px;
                 font-size: 14px;
 
-                
-
                 &.itemQuantity {
                   text-align: center;
                 }
-
-                
               }
 
               .removeItemBtn {
@@ -1267,7 +1284,7 @@
       > div {
         width: 100%;
         background: transparent;
-        
+
         > div:first-child {
           font-size: 28px !important;
           font-weight: bold !important;
@@ -1292,7 +1309,7 @@
       // Total Sales
       &:nth-child(1) {
         background-color: $primary-blue;
-        
+
         span {
           color: white !important;
           background: transparent;
@@ -1307,7 +1324,7 @@
       // Customers
       &:nth-child(2) {
         background-color: $secondary-purple;
-        
+
         span {
           color: white !important;
           background: transparent;
@@ -1322,7 +1339,7 @@
       // Growth
       &:nth-child(3) {
         background-color: $success;
-        
+
         span {
           color: white !important;
           background: transparent;
@@ -1338,7 +1355,7 @@
       &:nth-child(4) {
         background-color: transparent;
         border: 3px solid $secondary-purple;
-        
+
         span {
           color: black !important;
           background: transparent;
@@ -1368,7 +1385,7 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      
+
       h3 {
         margin: 0 0 20px 0;
         color: #333;
@@ -1392,7 +1409,7 @@
       padding: 20px;
       border-radius: 12px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      
+
       h3 {
         margin: 0 0 20px 0;
         color: #333;
@@ -1573,15 +1590,14 @@
 // history
 
 .history {
-
   background: #f9fafc;
   min-height: 100vh;
   padding: 20px 40px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   color: #2e2e2e;
   box-sizing: border-box;
 
-   .topReports {
+  .topReports {
     display: flex;
     align-items: center;
     gap: 15px;
@@ -1623,7 +1639,7 @@
     padding: 8px 15px;
     width: 100%;
     max-width: 400px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     margin-bottom: 30px;
     margin-top: 2vh;
     i {
@@ -1658,14 +1674,14 @@
       background: white;
       padding: 15px 25px;
       border-radius: 16px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
       transition: transform 0.2s ease, box-shadow 0.2s ease;
       flex-wrap: wrap;
       width: 100%;
       box-sizing: border-box;
       &:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 14px rgba(0,0,0,0.08);
+        box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
       }
 
       .profile {
@@ -1685,17 +1701,17 @@
 
       .fullName {
         //flex: 1;
-       // margin-left: 5vw;
+        // margin-left: 5vw;
         font-weight: 600;
         font-size: 16px;
-        color : $h-primary;
-       // background: transparent;
+        color: $h-primary;
+        // background: transparent;
       }
 
       .lastSale {
         color: $h-secondary;
         font-size: 14px;
-       // background: transparent;
+        // background: transparent;
         //margin-left: 5vw;
       }
       .totalSpent {
@@ -1705,9 +1721,9 @@
       }
     }
   }
-   @media (max-width: 768px) {
+  @media (max-width: 768px) {
     padding: 15px 20px;
-     .topReports {
+    .topReports {
       gap: 12px;
 
       i {
@@ -1738,7 +1754,7 @@
         font-size: 14px;
       }
 
-      .lastSale{
+      .lastSale {
         margin-left: 5vw;
       }
       .totalSpent {
@@ -1789,16 +1805,16 @@
         background: transparent;
       }
 
-      .lastSale{
+      .lastSale {
         font-size: 12px;
         margin-left: 7rem;
-       background: transparent;
+        background: transparent;
       }
       .totalSpent {
         font-size: 12px;
         align-self: flex-end;
       }
-      .detailsSection{
+      .detailsSection {
         margin-left: 7vw;
         margin-top: -6vh;
         background: transparent;
@@ -1807,93 +1823,93 @@
   }
   // Add this to your existing history.scss
 
-.customerCard {
-  position: relative; // Important for absolute positioning of delete button
-  
-  .deleteBtn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 36px;
-    height: 36px;
-    background: #dc2626;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: all 0.3s ease;
-    z-index: 10;
-
-    i {
-      font-size: 16px;
-      background: transparent;
-    }
-
-    &:hover {
-      background: darken(#dc2626, 10%);
-      transform: scale(1.1);
-    }
-
-    &:active {
-      transform: scale(0.95);
-    }
-  }
-
-  // Show delete button on hover
-  &:hover .deleteBtn {
-    opacity: 1;
-  }
-}
-
-// Delete notification
-.deleteNotification {
-  position: fixed;
-  top: 20px;
-  right: 20px;
-  background: #16a34a;
-  color: white;
-  padding: 15px 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  font-weight: 600;
-  z-index: 9999;
-  opacity: 0;
-  transform: translateX(400px);
-  transition: all 0.3s ease;
-
-  &.show {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-// Mobile responsive
-@media (max-width: 768px) {
   .customerCard {
+    position: relative; // Important for absolute positioning of delete button
+
     .deleteBtn {
-      opacity: 1; // Always show on mobile
-      width: 32px;
-      height: 32px;
-      top: 8px;
-      right: 8px;
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 36px;
+      height: 36px;
+      background: #dc2626;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: all 0.3s ease;
+      z-index: 10;
 
       i {
-        font-size: 14px;
+        font-size: 16px;
+        background: transparent;
       }
+
+      &:hover {
+        background: darken(#dc2626, 10%);
+        transform: scale(1.1);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+
+    // Show delete button on hover
+    &:hover .deleteBtn {
+      opacity: 1;
     }
   }
 
+  // Delete notification
   .deleteNotification {
-    top: 10px;
-    right: 10px;
-    left: 10px;
-    text-align: center;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #16a34a;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    font-weight: 600;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s ease;
+
+    &.show {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
-}
+
+  // Mobile responsive
+  @media (max-width: 768px) {
+    .customerCard {
+      .deleteBtn {
+        opacity: 1; // Always show on mobile
+        width: 32px;
+        height: 32px;
+        top: 8px;
+        right: 8px;
+
+        i {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .deleteNotification {
+      top: 10px;
+      right: 10px;
+      left: 10px;
+      text-align: center;
+    }
+  }
 }
 
 // custInfo
@@ -1903,7 +1919,7 @@
   width: 100%;
   background: linear-gradient(135deg, #7b61ff, #4a90e2);
   color: white;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   padding: 40px 30px;
   box-sizing: border-box;
   display: flex;
@@ -1966,7 +1982,7 @@
     margin-top: 35px;
     background: $common-bg;
     width: 100vw;
-    height: 100vh;
+    min-height: 100vh;
     border-radius: 60px;
     padding: 25px 20px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
@@ -2174,10 +2190,18 @@
         letter-spacing: 0.5px;
       }
 
-      &:nth-child(1) i { color: $success; }
-      &:nth-child(2) i { color: $primary-blue; }
-      &:nth-child(3) i { color: $warning; }
-      &:nth-child(4) i { color: $secondary-purple; }
+      &:nth-child(1) i {
+        color: $success;
+      }
+      &:nth-child(2) i {
+        color: $primary-blue;
+      }
+      &:nth-child(3) i {
+        color: $warning;
+      }
+      &:nth-child(4) i {
+        color: $secondary-purple;
+      }
     }
   }
 
@@ -2292,27 +2316,27 @@
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 30px;
-     background: transparent;
+    background: transparent;
 
     h3 {
       margin: 0 0 20px 0;
       color: #333;
       font-size: 20px;
-       background: transparent;
+      background: transparent;
     }
 
     .comparisonCards {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
       gap: 20px;
-       background: transparent;
+      background: transparent;
 
       .compCard {
         background: #f9fafb;
         padding: 20px;
         border-radius: 8px;
         text-align: center;
-         background: transparent;
+        background: transparent;
 
         .compLabel {
           font-size: 13px;
@@ -2320,7 +2344,7 @@
           margin-bottom: 10px;
           text-transform: uppercase;
           letter-spacing: 0.5px;
-           background: transparent;
+          background: transparent;
         }
 
         .compValue {
@@ -2328,7 +2352,7 @@
           font-weight: bold;
           color: #333;
           margin-bottom: 8px;
-           background: transparent;
+          background: transparent;
         }
 
         .compChange {
@@ -3070,10 +3094,18 @@
         background: transparent;
       }
 
-      &:nth-child(1) i { color: $success; }
-      &:nth-child(2) i { color: $primary-blue; }
-      &:nth-child(3) i { color: $secondary-purple; }
-      &:nth-child(4) i { color: $warning; }
+      &:nth-child(1) i {
+        color: $success;
+      }
+      &:nth-child(2) i {
+        color: $primary-blue;
+      }
+      &:nth-child(3) i {
+        color: $secondary-purple;
+      }
+      &:nth-child(4) i {
+        color: $warning;
+      }
     }
   }
 
@@ -3241,7 +3273,11 @@
 
         .barFill {
           height: 100%;
-          background: linear-gradient(90deg, $primary-blue, lighten($primary-blue, 10%));
+          background: linear-gradient(
+            90deg,
+            $primary-blue,
+            lighten($primary-blue, 10%)
+          );
           transition: width 0.5s ease;
           display: flex;
           align-items: center;
@@ -3509,7 +3545,7 @@
       #paymentDistribution > div {
         flex-direction: column !important;
         align-items: center !important;
-        
+
         svg {
           width: 220px !important;
           height: 220px !important;
@@ -3549,8 +3585,6 @@
     }
   }
 }
-
-
 
 // login
 
@@ -3715,10 +3749,10 @@
         &:active {
           transform: translateY(0);
         }
-        span{
+        span {
           background: transparent;
         }
-        i{
+        i {
           background: transparent;
         }
       }
@@ -3765,7 +3799,6 @@
 
 // Responsive
 @media (max-width: 480px) {
-
   .loginContainer .loginCard {
     padding: 30px 20px;
 
@@ -3780,7 +3813,7 @@
         font-size: 28px;
         background: transparent;
       }
-      P{
+      P {
         background: transparent;
       }
     }
@@ -3794,108 +3827,106 @@
 }
 
 //nav bar
-nav{
+nav {
   background-color: $h-primary;
   position: fixed;
   top: 0;
   left: -100%;
-  height : 100vh;
-  width : 50vw;
+  height: 100vh;
+  width: 50vw;
   z-index: 10;
   border-right: 1px solid $h-secondary;
   transition: left 300ms ease-out;
-  li{
+  li {
     background: transparent;
     background-color: $h-primary;
-    a{
-      color : $bg-light;
-      padding : 20px;
+    a {
+      color: $bg-light;
+      padding: 20px;
     }
   }
 }
 
-
-nav.show{
-  left : 0;
+nav.show {
+  left: 0;
 }
 
-nav ul{
+nav ul {
   list-style: none; // means we can keep the list "dot" "square" or "none"
-  display : flex;
+  display: flex;
   flex-direction: column;
   width: 100%;
   background: transparent;
   background-color: $h-primary;
-  a{
+  a {
     background: transparent;
   }
 }
 
-nav .profile-li{
+nav .profile-li {
   margin-right: auto;
 }
 
-nav a{
+nav a {
   display: flex;
   text-decoration: none;
   padding: 1px 1px;
 }
 
-nav a:hover{
+nav a:hover {
   background-color: #4a90e2;
 }
 
-#openSliders{
+#openSliders {
   display: block;
   background: none;
   border: none;
-  padding : 1em;
+  padding: 1em;
   margin-right: auto;
   margin-right: 7vw;
   cursor: pointer;
 }
 
-#closeSliders{
-  display : none;
+#closeSliders {
+  display: none;
   background: none;
   background-color: $h-primary;
   border: none;
-  padding : 1em;
+  padding: 1em;
   cursor: pointer;
 
-  svg{
+  svg {
     background: transparent;
   }
 }
 
-#overlay{
-  background: rgba(0,0,0,0.5);
+#overlay {
+  background: rgba(0, 0, 0, 0.5);
   position: fixed;
-  inset : 0;
+  inset: 0;
   z-index: 9;
-  display : none;
+  display: none;
 }
 
-nav.show ~ #overlay{
-  display : block;
+nav.show ~ #overlay {
+  display: block;
 }
 
 // profile page
 
-.profContainer{
-
-  .profHeaderConst{
-    display : flex;
+.profContainer {
+  .profHeaderConst {
+    display: flex;
     flex-wrap: nowrap;
-    width : 100%;
-    height : 10vh;
+    width: 100%;
+    height: 10vh;
     background-color: $common-bg;
-    padding : 20px;
+    padding: 20px;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
     border-width: 100vw;
     border-bottom: 2px solid $h-divider;
-    a{
+    a {
       font-size: 25px;
     }
   }
@@ -3903,9 +3934,9 @@ nav.show ~ #overlay{
 
 .profMain {
   display: flex;
-  flex-direction: column;     
-  align-items: center;   
-  justify-content: flex-start; 
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   width: 100%;
   min-height: 30vh;
   padding: 20px;
@@ -3920,67 +3951,68 @@ nav.show ~ #overlay{
     height: 120px;
     border-radius: 50%;
     background-color: $h-secondary;
-    margin-bottom: 10px; 
+    margin-bottom: 10px;
   }
-  h1{
+  h1 {
     background: transparent;
-    color : $bg-light;
+    color: $bg-light;
   }
-  h3, p {
+  h3,
+  p {
     margin: 5px 0;
     text-align: center;
   }
 }
 
-.profInfo{
+.profInfo {
   display: flex;
   flex-direction: column;
   justify-content: left;
   border-bottom: 2px solid $h-divider;
 
-  .inputRow{
+  .inputRow {
     padding: 10px;
     gap: 5px;
 
-    input{
+    input {
       font-size: large;
     }
-    i{
+    i {
       font-size: 25px;
     }
   }
 }
 
-.TotSaleRow{
-  display : flex;
+.TotSaleRow {
+  display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   border-bottom: 2px solid $h-divider;
 
-  .rowItem{
-    margin : 8px;
+  .rowItem {
+    margin: 8px;
     display: flex;
     justify-content: space-between;
     align-items: end;
   }
 }
 
-.profLower{
-    display: flex;
-  }
+.profLower {
+  display: flex;
+}
 
-  .ProSave{
-    display: flex;
-    margin: 20px;
-    justify-content: center;
-    align-items: center;
+.ProSave {
+  display: flex;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
 
-    button{
-      width : 80vw;
-      height : 5vh;
-      border-radius: 10px;
-      background-color: $primary-blue;
-      color : white;
-      font-weight: bolder;
-    }
+  button {
+    width: 80vw;
+    height: 5vh;
+    border-radius: 10px;
+    background-color: $primary-blue;
+    color: white;
+    font-weight: bolder;
   }
+}
