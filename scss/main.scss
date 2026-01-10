@@ -29,16 +29,16 @@
   max-width: 420px;
 }
 
-.login-card {
+/*.loginCard {
   background: $card-bg;
   border-radius: 14px;
   box-shadow: 0 6px 20px rgba(16, 24, 40, 0.06);
   padding: 20px;
   border: 1px solid $border;
-}
+}*/
 
 /* Header */
-.login-header {
+/*.login-header {
   text-align: left;
   margin-bottom: 12px;
   .logo {
@@ -73,10 +73,10 @@
     font-size: 13px;
     color: $text-secondary;
   }
-}
+}*/
 
 /* Form */
-.login-form {
+/*.loginForm {
   margin-top: 10px;
 }
 
@@ -119,10 +119,10 @@
     margin-top: 6px;
     min-height: 18px;
   }
-}
+}*/
 
 /* password row */
-.password-row {
+/*.password-row {
   display: flex;
   gap: 8px;
   align-items: center;
@@ -141,10 +141,10 @@
   input {
     flex: 1;
   }
-}
+}*/
 
 /* actions */
-.actions {
+/*.actions {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -161,10 +161,10 @@
     height: 16px;
     accent-color: $primary-blue;
   }
-}
+}*/
 
 /* buttons */
-.btn {
+/*.btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -184,32 +184,32 @@
   background: transparent;
   color: $primary-blue;
   border: 1px solid rgba(74, 144, 226, 0.12);
-}
+}*/
 
 /* feedback */
-.feedback {
+/*.feedback {
   margin-top: 12px;
   font-size: 13px;
   min-height: 20px;
   color: $text-secondary;
-}
+}*/
 
 /* footer */
-.login-footer {
+/*.login-footer {
   margin-top: 12px;
   display: flex;
   justify-content: center;
-}
+}*/
 
 /* responsiveness - mobile first already */
-@media (min-width: 480px) {
+/*@media (min-width: 480px) {
   .login-card {
     padding: 28px;
   }
   .title {
     font-size: 22px;
   }
-}
+}*/
 
 // home page
 
@@ -3607,9 +3607,10 @@
 .loginContainer {
   width: 100%;
   max-width: 450px;
+  margin: 0 auto;
+  padding: 20px;
 
   .loginCard {
-    margin-top: 10vh;
     background: white;
     border-radius: 20px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -3630,29 +3631,38 @@
     .logoSection {
       text-align: center;
       margin-bottom: 30px;
+      background: transparent;
 
       .loginLogo {
         width: 80px;
-        height: auto;
-        margin-bottom: 15px;
+        height: 80px;
+        margin: 0 auto 15px;
+        display: block;
+        border-radius: 14px;
+        object-fit: cover;
+        background: transparent;
       }
 
       h1 {
         font-size: 32px;
         font-weight: bold;
         color: $primary-blue;
-        margin-bottom: 8px;
+        margin: 0 0 8px 0;
         font-family: "Fontdiner Swanky", cursive;
+        background: transparent;
       }
 
       p {
         color: $text-secondary;
         font-size: 14px;
+        margin: 0;
+        background: transparent;
       }
     }
 
     .loginForm {
       background: transparent;
+
       .inputGroup {
         position: relative;
         margin-bottom: 20px;
@@ -3666,20 +3676,24 @@
           color: $text-secondary;
           font-size: 18px;
           z-index: 1;
+          background: transparent;
         }
 
         input {
           width: 100%;
-          padding: 15px 15px 15px 50px;
+          padding: 15px 50px 15px 50px;
           border: 2px solid $border;
           border-radius: 12px;
           font-size: 15px;
           outline: none;
           transition: all 0.3s ease;
+          background: #fafafa;
+          box-sizing: border-box;
 
           &:focus {
             border-color: $primary-blue;
             box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+            background: white;
           }
 
           &::placeholder {
@@ -3688,12 +3702,16 @@
         }
 
         .togglePassword {
+          position: absolute;
           left: auto;
           right: 15px;
+          top: 50%;
+          transform: translateY(-50%);
           cursor: pointer;
           color: $text-secondary;
           transition: color 0.3s ease;
           z-index: 2;
+          background: transparent;
 
           &:hover {
             color: $primary-blue;
@@ -3714,12 +3732,20 @@
           cursor: pointer;
           font-size: 14px;
           color: $text-secondary;
+          background: transparent;
+          margin: 0;
 
           input[type="checkbox"] {
             width: 18px;
             height: 18px;
+            margin: 0;
             cursor: pointer;
             accent-color: $primary-blue;
+          }
+
+          span {
+            background: transparent;
+            margin: 0;
           }
         }
       }
@@ -3740,20 +3766,30 @@
         gap: 10px;
         transition: all 0.3s ease;
         box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        margin: 0;
 
         &:hover {
           transform: translateY(-2px);
           box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+
+          i {
+            transform: translateX(4px);
+          }
         }
 
         &:active {
           transform: translateY(0);
         }
+
         span {
           background: transparent;
+          margin: 0;
         }
+
         i {
           background: transparent;
+          margin: 0;
+          transition: transform 0.3s ease;
         }
       }
     }
@@ -3765,6 +3801,7 @@
       font-size: 14px;
       text-align: center;
       display: none;
+      background: transparent;
 
       &.show {
         display: block;
@@ -3799,28 +3836,35 @@
 
 // Responsive
 @media (max-width: 480px) {
-  .loginContainer .loginCard {
-    padding: 30px 20px;
+  .loginContainer {
+    padding: 15px;
 
-    .logoSection {
-      background: transparent;
-      .loginLogo {
-        width: 60px;
+    .loginCard {
+      padding: 30px 25px;
+
+      .logoSection {
         background: transparent;
+
+        .loginLogo {
+          width: 60px;
+          height: 60px;
+          background: transparent;
+        }
+
+        h1 {
+          font-size: 28px;
+          background: transparent;
+        }
+
+        p {
+          background: transparent;
+        }
       }
 
-      h1 {
-        font-size: 28px;
-        background: transparent;
-      }
-      P {
-        background: transparent;
-      }
-    }
-
-    .loginForm {
-      .inputGroup input {
-        padding: 12px 12px 12px 45px;
+      .loginForm {
+        .inputGroup input {
+          padding: 12px 45px 12px 45px;
+        }
       }
     }
   }
@@ -4014,5 +4058,50 @@ nav.show ~ #overlay {
     background-color: $primary-blue;
     color: white;
     font-weight: bolder;
+  }
+}
+
+.invoiceBtn {
+  background: #10b981;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s ease;
+  margin-left: 8px;
+}
+
+.invoiceBtn:hover {
+  background: #059669;
+  transform: translateY(-2px);
+}
+
+.invoiceBtn i {
+  pointer-events: none;
+}
+
+.customerCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.customerCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+  .loginCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

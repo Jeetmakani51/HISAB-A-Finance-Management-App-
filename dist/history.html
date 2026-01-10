@@ -1,36 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>History</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-     <link href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/main.css">
-     <script src="details.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+      integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fontdiner+Swanky&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
+    <script src="details.js"></script>
     <script src="history.js"></script>
-    
-</head>
-<body>
+  </head>
+  <body>
     <div class="history">
-        <div class="topReports">
-          <a href="home.html"><i class="fa-solid fa-arrow-left"></i></a>
-          <h2>History</h2>
-          <img class = "Logo" src="bcgLogo.png" alt="">
+      <div class="topReports">
+        <a href="home.html"><i class="fa-solid fa-arrow-left"></i></a>
+        <h2>History</h2>
+        <img class="Logo" src="bcgLogo.png" alt="" />
+      </div>
+      <hr class="section-divider" />
+      <div class="searchHistory">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" id="searchInput" placeholder="Search customers..." />
+      </div>
+      <div class="customerReports">
+        <div class="customerCard">
+          <div class="profile"></div>
+          <div class="fullName"></div>
+          <div class="lastSale"></div>
+          <div class="totalSpent"></div>
         </div>
-      <hr class = "section-divider">
-        <div class="searchHistory">
-           <i class="fa-solid fa-magnifying-glass"></i>
-            <input type="text" id="searchInput" placeholder="Search customers...">
-        </div>
-        <div class="customerReports">
-            <div class="customerCard">
-                <div class="profile"></div>
-                  <div class="fullName"></div>
-                  <div class="lastSale"> </div>
-                 <div class="totalSpent"></div>
-               </div>
-            </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
