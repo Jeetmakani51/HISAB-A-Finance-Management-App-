@@ -835,7 +835,9 @@ function createTargetProgress(achieved, currentMonth) {
   document.getElementById("remainingDays").textContent = `${remainingDays} days`;
 }*/
 
-document.addEventListener("DOMContentLoaded", () => {
+//version - 1
+
+/*document.addEventListener("DOMContentLoaded", () => {
   const purchases = JSON.parse(localStorage.getItem("purchases")) || [];
   const customers = JSON.parse(localStorage.getItem("customers")) || [];
 
@@ -869,9 +871,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 1. This Month's Revenue
   const monthRevenue = thisMonthPurchases.reduce((sum, p) => sum + p.price, 0);
-  document.getElementById(
-    "monthRevenue"
-  ).textContent = `₹${monthRevenue.toLocaleString()}`;
+  document.getElementById("monthRevenue").textContent =
+    `₹${monthRevenue.toLocaleString()}`;
 
   //Total Customers Count
   const totalCustomersCount = customers.length;
@@ -888,11 +889,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const firstOfMonth = new Date(currentYear, currentMonth, 1).getTime();
   const newCustomersCount = customers.filter((c) => {
     const customerPurchases = purchases.filter(
-      (p) => p.customerNumber === c.number
+      (p) => p.customerNumber === c.number,
     );
     if (customerPurchases.length === 0) return false;
     const firstPurchase = Math.min(
-      ...customerPurchases.map((p) => p.timestamp)
+      ...customerPurchases.map((p) => p.timestamp),
     );
     return firstPurchase >= firstOfMonth;
   }).length;
@@ -901,7 +902,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // 4. Growth Rate vs Last Month
   const lastMonthRevenue = lastMonthPurchases.reduce(
     (sum, p) => sum + p.price,
-    0
+    0,
   );
   let growthRate = 0;
   if (lastMonthRevenue > 0) {
@@ -914,7 +915,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   const growthEl = document.getElementById("growthRate");
   growthEl.textContent = `${growthRate >= 0 ? "↑" : "↓"} ${Math.abs(
-    growthRate
+    growthRate,
   )}%`;
   growthEl.style.color = growthRate >= 0 ? "#16a34a" : "#dc2626";
 
@@ -973,7 +974,7 @@ function createDailySalesChart(purchases, month, year) {
     svg += `<text x="${padding.left - 10}" y="${
       y + 5
     }" text-anchor="end" font-size="10" fill="#666">₹${Math.round(
-      value
+      value,
     )}</text>`;
     svg += `<line x1="${padding.left}" y1="${y}" x2="${
       chartWidth - padding.right
@@ -1055,7 +1056,7 @@ function createWeeklyBreakdown(purchases) {
     }" text-anchor="middle" font-size="${
       isMobile ? "9" : "11"
     }" fill="#333" font-weight="600">₹${Math.round(
-      amount
+      amount,
     ).toLocaleString()}</text>`;
   });
 
@@ -1156,7 +1157,7 @@ function createTopCustomers(purchases, customers) {
     const customer = customers.find((c) => c.number === number);
     const customerName = customer ? customer.name : "Unknown";
     const orderCount = purchases.filter(
-      (p) => p.customerNumber === number
+      (p) => p.customerNumber === number,
     ).length;
 
     let rankClass = "rankOther";
@@ -1288,9 +1289,8 @@ function createPendingPayments(purchases, customers) {
   const pendingPurchases = purchases.filter((p) => p.payment === "unpaid");
 
   const totalPending = pendingPurchases.reduce((sum, p) => sum + p.price, 0);
-  document.getElementById(
-    "totalPending"
-  ).textContent = `₹${totalPending.toLocaleString()}`;
+  document.getElementById("totalPending").textContent =
+    `₹${totalPending.toLocaleString()}`;
 
   const customersPending = {};
   pendingPurchases.forEach((p) => {
@@ -1299,9 +1299,8 @@ function createPendingPayments(purchases, customers) {
   });
 
   const pendingCount = Object.keys(customersPending).length;
-  document.getElementById(
-    "pendingCount"
-  ).textContent = `${pendingCount} customer${pendingCount !== 1 ? "s" : ""}`;
+  document.getElementById("pendingCount").textContent =
+    `${pendingCount} customer${pendingCount !== 1 ? "s" : ""}`;
 
   const container = document.getElementById("pendingList");
 
@@ -1332,25 +1331,2242 @@ function createPendingPayments(purchases, customers) {
 function createTargetProgress(achieved, currentMonth) {
   const target = 150000; // ₹1,50,000 target
 
-  document.getElementById(
-    "targetAmount"
-  ).textContent = `₹${target.toLocaleString()}`;
-  document.getElementById(
-    "achievedAmount"
-  ).textContent = `₹${achieved.toLocaleString()}`;
+  document.getElementById("targetAmount").textContent =
+    `₹${target.toLocaleString()}`;
+  document.getElementById("achievedAmount").textContent =
+    `₹${achieved.toLocaleString()}`;
 
   const percentage = Math.min((achieved / target) * 100, 100);
 
   document.getElementById("progressFill").style.width = `${percentage}%`;
   document.getElementById("progressText").textContent = `${percentage.toFixed(
-    1
+    1,
   )}%`;
 
   // Calculate remaining days in month
   const now = new Date();
   const lastDay = new Date(now.getFullYear(), currentMonth + 1, 0).getDate();
   const remainingDays = lastDay - now.getDate();
-  document.getElementById(
-    "remainingDays"
-  ).textContent = `${remainingDays} days`;
+  document.getElementById("remainingDays").textContent =
+    `${remainingDays} days`;
+}*/
+
+// version-2
+
+// Add debugging to see what's happening
+/*console.log("Monthly Sales script loaded");
+
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOM Content Loaded - Starting to load data");
+
+  let purchases = [];
+  let customers = [];
+
+  // Try multiple storage methods to find where data is stored
+
+  // Method 1: Try window.storage (if available)
+  if (typeof window.storage !== "undefined") {
+    console.log("Trying window.storage API...");
+    try {
+      const purchasesData = await window.storage.get("purchases");
+      if (purchasesData && purchasesData.value) {
+        purchases = JSON.parse(purchasesData.value);
+        console.log(
+          "Loaded from window.storage:",
+          purchases.length,
+          "purchases",
+        );
+      }
+    } catch (error) {
+      console.log("window.storage.get failed:", error);
+    }
+
+    try {
+      const customersData = await window.storage.get("customers");
+      if (customersData && customersData.value) {
+        customers = JSON.parse(customersData.value);
+        console.log(
+          "Loaded from window.storage:",
+          customers.length,
+          "customers",
+        );
+      }
+    } catch (error) {
+      console.log("window.storage.get customers failed:", error);
+    }
+  }
+
+  // Method 2: Try localStorage (fallback)
+  if (purchases.length === 0) {
+    console.log("Trying localStorage...");
+    try {
+      const localPurchases = localStorage.getItem("purchases");
+      if (localPurchases) {
+        purchases = JSON.parse(localPurchases);
+        console.log("Loaded from localStorage:", purchases.length, "purchases");
+      }
+    } catch (error) {
+      console.log("localStorage purchases failed:", error);
+    }
+
+    try {
+      const localCustomers = localStorage.getItem("customers");
+      if (localCustomers) {
+        customers = JSON.parse(localCustomers);
+        console.log("Loaded from localStorage:", customers.length, "customers");
+      }
+    } catch (error) {
+      console.log("localStorage customers failed:", error);
+    }
+  }
+
+  console.log(
+    "Final data - Purchases:",
+    purchases.length,
+    "Customers:",
+    customers.length,
+  );
+
+  // Debug: Show sample data
+  if (purchases.length > 0) {
+    console.log("Sample purchase:", purchases[0]);
+  }
+
+  // Get current month info
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  console.log("Current month:", currentMonth, "Year:", currentYear);
+
+  // Filter this month's purchases
+  const thisMonthPurchases = purchases.filter((p) => {
+    if (!p.timestamp) {
+      console.log("Purchase missing timestamp:", p);
+      return false;
+    }
+    const purchaseDate = new Date(p.timestamp);
+    const isThisMonth =
+      purchaseDate.getMonth() === currentMonth &&
+      purchaseDate.getFullYear() === currentYear;
+    return isThisMonth;
+  });
+
+  console.log("This month's purchases:", thisMonthPurchases.length);
+
+  // Filter last month's purchases for comparison
+  const lastMonth = new Date(currentYear, currentMonth - 1, 1);
+  const lastMonthPurchases = purchases.filter((p) => {
+    if (!p.timestamp) return false;
+    const purchaseDate = new Date(p.timestamp);
+    return (
+      purchaseDate.getMonth() === lastMonth.getMonth() &&
+      purchaseDate.getFullYear() === lastMonth.getFullYear()
+    );
+  });
+
+  console.log("Last month's purchases:", lastMonthPurchases.length);
+
+  // ========== UPDATE METRICS CARDS ==========
+
+  // 1. This Month's Revenue
+  const monthRevenue = thisMonthPurchases.reduce(
+    (sum, p) => sum + (p.price || 0),
+    0,
+  );
+  console.log("Month revenue:", monthRevenue);
+
+  const monthRevenueEl = document.getElementById("monthRevenue");
+  if (monthRevenueEl) {
+    monthRevenueEl.textContent = `₹${monthRevenue.toLocaleString()}`;
+  } else {
+    console.error("Element 'monthRevenue' not found!");
+  }
+
+  // Total Customers Count
+  const totalCustomersCount = customers.length;
+  const totalCustomersEl = document.getElementById("totalCustomers");
+  if (totalCustomersEl) {
+    totalCustomersEl.textContent = totalCustomersCount;
+  }
+
+  // Total Invoices
+  const totalInvoices = purchases.length;
+  const totalInvoicesEl = document.getElementById("totalInvoices");
+  if (totalInvoicesEl) {
+    totalInvoicesEl.textContent = totalInvoices;
+  }
+
+  // 2. Total Orders
+  const totalOrdersEl = document.getElementById("totalOrders");
+  if (totalOrdersEl) {
+    totalOrdersEl.textContent = thisMonthPurchases.length;
+  } else {
+    console.error("Element 'totalOrders' not found!");
+  }
+
+  // 3. New Customers This Month
+  const firstOfMonth = new Date(currentYear, currentMonth, 1).getTime();
+  const newCustomersCount = customers.filter((c) => {
+    const customerPurchases = purchases.filter(
+      (p) => p.customerNumber === c.number,
+    );
+    if (customerPurchases.length === 0) return false;
+    const firstPurchase = Math.min(
+      ...customerPurchases.map((p) => p.timestamp),
+    );
+    return firstPurchase >= firstOfMonth;
+  }).length;
+
+  const newCustomersEl = document.getElementById("newCustomers");
+  if (newCustomersEl) {
+    newCustomersEl.textContent = newCustomersCount;
+  } else {
+    console.error("Element 'newCustomers' not found!");
+  }
+
+  // 4. Growth Rate vs Last Month
+  const lastMonthRevenue = lastMonthPurchases.reduce(
+    (sum, p) => sum + (p.price || 0),
+    0,
+  );
+  let growthRate = 0;
+  if (lastMonthRevenue > 0) {
+    growthRate = (
+      ((monthRevenue - lastMonthRevenue) / lastMonthRevenue) *
+      100
+    ).toFixed(1);
+  } else if (monthRevenue > 0) {
+    growthRate = 100;
+  }
+
+  const growthEl = document.getElementById("growthRate");
+  if (growthEl) {
+    growthEl.textContent = `${growthRate >= 0 ? "↑" : "↓"} ${Math.abs(
+      growthRate,
+    )}%`;
+    growthEl.style.color = growthRate >= 0 ? "#16a34a" : "#dc2626";
+  } else {
+    console.error("Element 'growthRate' not found!");
+  }
+
+  // ========== CHARTS ==========
+  console.log("Creating charts...");
+
+  try {
+    createDailySalesChart(thisMonthPurchases, currentMonth, currentYear);
+    console.log("Daily sales chart created");
+  } catch (e) {
+    console.error("Error creating daily sales chart:", e);
+  }
+
+  try {
+    createWeeklyBreakdown(thisMonthPurchases);
+    console.log("Weekly breakdown created");
+  } catch (e) {
+    console.error("Error creating weekly breakdown:", e);
+  }
+
+  try {
+    createPaymentDistribution(thisMonthPurchases);
+    console.log("Payment distribution created");
+  } catch (e) {
+    console.error("Error creating payment distribution:", e);
+  }
+
+  try {
+    createTopCustomers(thisMonthPurchases, customers);
+    console.log("Top customers created");
+  } catch (e) {
+    console.error("Error creating top customers:", e);
+  }
+
+  try {
+    createBestProducts(thisMonthPurchases);
+    console.log("Best products created");
+  } catch (e) {
+    console.error("Error creating best products:", e);
+  }
+
+  try {
+    createSalesByDay(thisMonthPurchases);
+    console.log("Sales by day created");
+  } catch (e) {
+    console.error("Error creating sales by day:", e);
+  }
+
+  try {
+    createPendingPayments(thisMonthPurchases, customers);
+    console.log("Pending payments created");
+  } catch (e) {
+    console.error("Error creating pending payments:", e);
+  }
+
+  try {
+    createTargetProgress(monthRevenue, currentMonth);
+    console.log("Target progress created");
+  } catch (e) {
+    console.error("Error creating target progress:", e);
+  }
+
+  console.log("All charts creation attempted");
+});
+
+// Daily Sales Line Chart
+function createDailySalesChart(purchases, month, year) {
+  const container = document.getElementById("dailySalesChart");
+  if (!container) {
+    console.error("dailySalesChart container not found!");
+    return;
+  }
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const dailySales = {};
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    dailySales[day] = 0;
+  }
+
+  purchases.forEach((p) => {
+    if (p.timestamp) {
+      const day = new Date(p.timestamp).getDate();
+      dailySales[day] += p.price || 0;
+    }
+  });
+
+  const maxSale = Math.max(...Object.values(dailySales), 1);
+  const chartHeight = 300;
+  const chartWidth = Math.max(daysInMonth * 25, 600);
+  const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+
+  let svg = `<div style="overflow-x: auto;"><svg width="${chartWidth}" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}">`;
+
+  // Axes
+  svg += `<line x1="${padding.left}" y1="${chartHeight - padding.bottom}" x2="${
+    chartWidth - padding.right
+  }" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
+  svg += `<line x1="${padding.left}" y1="${padding.top}" x2="${
+    padding.left
+  }" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
+
+  // Y-axis labels
+  const ySteps = 5;
+  for (let i = 0; i <= ySteps; i++) {
+    const value = (maxSale / ySteps) * i;
+    const y =
+      chartHeight -
+      padding.bottom -
+      (value / maxSale) * (chartHeight - padding.top - padding.bottom);
+    svg += `<text x="${padding.left - 10}" y="${
+      y + 5
+    }" text-anchor="end" font-size="10" fill="#666">₹${Math.round(
+      value,
+    )}</text>`;
+    svg += `<line x1="${padding.left}" y1="${y}" x2="${
+      chartWidth - padding.right
+    }" y2="${y}" stroke="#f0f0f0" stroke-width="1"/>`;
+  }
+
+  // Plot line
+  const days = Object.keys(dailySales);
+  const xStep = (chartWidth - padding.left - padding.right) / (days.length - 1);
+  let pathData = "";
+
+  days.forEach((day, i) => {
+    const x = padding.left + i * xStep;
+    const y =
+      chartHeight -
+      padding.bottom -
+      (dailySales[day] / maxSale) *
+        (chartHeight - padding.top - padding.bottom);
+
+    if (i === 0) {
+      pathData = `M ${x} ${y}`;
+    } else {
+      pathData += ` L ${x} ${y}`;
+    }
+
+    svg += `<circle cx="${x}" cy="${y}" r="3" fill="#2563eb"/>`;
+
+    if (i % 5 === 0) {
+      svg += `<text x="${x}" y="${
+        chartHeight - padding.bottom + 15
+      }" text-anchor="middle" font-size="10" fill="#666">${day}</text>`;
+    }
+  });
+
+  svg += `<path d="${pathData}" fill="none" stroke="#2563eb" stroke-width="2.5"/>`;
+  svg += `</svg></div>`;
+  container.innerHTML = svg;
+}
+
+// Weekly Breakdown
+function createWeeklyBreakdown(purchases) {
+  const container = document.getElementById("weeklyBreakdown");
+  if (!container) {
+    console.error("weeklyBreakdown container not found!");
+    return;
+  }
+
+  const weeks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+  purchases.forEach((p) => {
+    if (p.timestamp) {
+      const day = new Date(p.timestamp).getDate();
+      const week = Math.ceil(day / 7);
+      weeks[week] += p.price || 0;
+    }
+  });
+
+  const maxWeek = Math.max(...Object.values(weeks), 1);
+  const isMobile = window.innerWidth <= 480;
+  const chartWidth = isMobile ? 300 : 400;
+  const chartHeight = 250;
+  const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+
+  let svg = `<svg width="100%" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}" preserveAspectRatio="xMidYMid meet" style="max-width: 100%;">`;
+
+  const barWidth = (chartWidth - padding.left - padding.right) / 5 - 20;
+
+  Object.entries(weeks).forEach(([week, amount], i) => {
+    const x =
+      padding.left + (i * (chartWidth - padding.left - padding.right)) / 5 + 10;
+    const barHeight =
+      (amount / maxWeek) * (chartHeight - padding.top - padding.bottom);
+    const y = chartHeight - padding.bottom - barHeight;
+
+    svg += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" fill="#9333ea" rx="6"/>`;
+    svg += `<text x="${x + barWidth / 2}" y="${
+      chartHeight - padding.bottom + 20
+    }" text-anchor="middle" font-size="${
+      isMobile ? "10" : "12"
+    }" fill="#666">Week ${week}</text>`;
+    svg += `<text x="${x + barWidth / 2}" y="${
+      y - 10
+    }" text-anchor="middle" font-size="${
+      isMobile ? "9" : "11"
+    }" fill="#333" font-weight="600">₹${Math.round(
+      amount,
+    ).toLocaleString()}</text>`;
+  });
+
+  svg += `</svg>`;
+  container.innerHTML = svg;
+}
+
+// Payment Distribution
+function createPaymentDistribution(purchases) {
+  const container = document.getElementById("paymentDistribution");
+  if (!container) {
+    console.error("paymentDistribution container not found!");
+    return;
+  }
+
+  const paymentMethods = {};
+  purchases.forEach((p) => {
+    const method = p.paymentMethod || "Unknown";
+    paymentMethods[method] = (paymentMethods[method] || 0) + 1;
+  });
+
+  const colors = {
+    cash: "#3b82f6",
+    upi: "#8b5cf6",
+    card: "#ec4899",
+    bank: "#06b6d4",
+    Unknown: "#6b7280",
+  };
+
+  const total = purchases.length || 1;
+  const isMobile = window.innerWidth <= 768;
+  const radius = isMobile ? 80 : 100;
+  const svgSize = isMobile ? 220 : 260;
+  const centerX = svgSize / 2;
+  const centerY = svgSize / 2;
+  let currentAngle = 0;
+
+  let html = `<div style="display: flex; align-items: center; justify-content: space-around; gap: 30px; flex-wrap: wrap; padding: 10px;">`;
+  html += `<svg width="${svgSize}" height="${svgSize}" viewBox="0 0 ${svgSize} ${svgSize}" style="flex-shrink: 0; background: white; border-radius: 8px;">`;
+
+  Object.entries(paymentMethods).forEach(([method, count]) => {
+    const percentage = (count / total) * 100;
+    const sliceAngle = (percentage / 100) * 360;
+
+    const startAngle = currentAngle;
+    const endAngle = currentAngle + sliceAngle;
+
+    const x1 = centerX + radius * Math.cos(((startAngle - 90) * Math.PI) / 180);
+    const y1 = centerY + radius * Math.sin(((startAngle - 90) * Math.PI) / 180);
+    const x2 = centerX + radius * Math.cos(((endAngle - 90) * Math.PI) / 180);
+    const y2 = centerY + radius * Math.sin(((endAngle - 90) * Math.PI) / 180);
+
+    const largeArc = sliceAngle > 180 ? 1 : 0;
+    const color = colors[method] || colors["Unknown"];
+
+    html += `<path d="M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z" fill="${color}" stroke="white" stroke-width="3"/>`;
+
+    currentAngle = endAngle;
+  });
+
+  html += `</svg><div style="display: flex; flex-direction: column; gap: 12px; min-width: 180px;">`;
+
+  Object.entries(paymentMethods).forEach(([method, count]) => {
+    const percentage = ((count / total) * 100).toFixed(1);
+    const color = colors[method] || colors["Unknown"];
+
+    html += `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 24px; height: 24px; background: ${color}; border-radius: 4px; flex-shrink: 0;"></div>
+        <span style="font-size: ${
+          isMobile ? "14px" : "15px"
+        }; color: #333; font-weight: 500;">${method}: ${count} (${percentage}%)</span>
+      </div>
+    `;
+  });
+
+  html += `</div></div>`;
+  container.innerHTML = html;
+}
+
+// Top Customers Leaderboard
+function createTopCustomers(purchases, customers) {
+  const container = document.getElementById("topCustomers");
+  if (!container) {
+    console.error("topCustomers container not found!");
+    return;
+  }
+
+  const customerSpending = {};
+  purchases.forEach((p) => {
+    customerSpending[p.customerNumber] =
+      (customerSpending[p.customerNumber] || 0) + (p.price || 0);
+  });
+
+  const sorted = Object.entries(customerSpending)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  if (sorted.length === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: #666;">No customers this month</div>`;
+    return;
+  }
+
+  let html = "";
+  sorted.forEach(([number, amount], index) => {
+    const customer = customers.find((c) => c.number === number);
+    const customerName = customer ? customer.name : "Unknown";
+    const orderCount = purchases.filter(
+      (p) => p.customerNumber === number,
+    ).length;
+
+    let rankClass = "rankOther";
+    if (index === 0) rankClass = "rank1";
+    else if (index === 1) rankClass = "rank2";
+    else if (index === 2) rankClass = "rank3";
+
+    html += `
+      <div class="customerRank">
+        <div class="rankBadge ${rankClass}">${index + 1}</div>
+        <div class="customerInfo">
+          <div class="customerName">${customerName}</div>
+          <div class="orderCount">${orderCount} orders</div>
+        </div>
+        <div class="customerSpent">₹${amount.toLocaleString()}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Best Selling Products
+function createBestProducts(purchases) {
+  const container = document.getElementById("bestProducts");
+  if (!container) {
+    console.error("bestProducts container not found!");
+    return;
+  }
+
+  const productStats = {};
+
+  purchases.forEach((p) => {
+    if (Array.isArray(p.items)) {
+      p.items.forEach((item) => {
+        const itemName = item.name || "Unknown";
+        if (!productStats[itemName]) {
+          productStats[itemName] = { revenue: 0, quantity: 0 };
+        }
+        productStats[itemName].revenue +=
+          (item.quantity || 0) * (item.price || 0);
+        productStats[itemName].quantity += item.quantity || 0;
+      });
+    } else {
+      const item = p.items || "Unknown";
+      if (!productStats[item]) {
+        productStats[item] = { revenue: 0, quantity: 0 };
+      }
+      productStats[item].revenue += p.price || 0;
+      productStats[item].quantity += p.quantity || 1;
+    }
+  });
+
+  const sorted = Object.entries(productStats)
+    .sort((a, b) => b[1].revenue - a[1].revenue)
+    .slice(0, 5);
+
+  if (sorted.length === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: #666;">No products sold this month</div>`;
+    return;
+  }
+
+  const maxRevenue = sorted[0][1].revenue || 1;
+
+  let html = "";
+  sorted.forEach(([product, stats]) => {
+    const percentage = (stats.revenue / maxRevenue) * 100;
+
+    html += `
+      <div class="productBar">
+        <div class="productHeader">
+          <div class="productName">${product} (${stats.quantity} units)</div>
+          <div class="productRevenue">₹${stats.revenue.toLocaleString()}</div>
+        </div>
+        <div class="barContainer">
+          <div class="barFill" style="width: ${percentage}%;">
+            <div class="barText">${percentage.toFixed(0)}%</div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Sales by Day of Week
+function createSalesByDay(purchases) {
+  const container = document.getElementById("salesByDay");
+  if (!container) {
+    console.error("salesByDay container not found!");
+    return;
+  }
+
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const daySales = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+
+  purchases.forEach((p) => {
+    if (p.timestamp) {
+      const day = new Date(p.timestamp).getDay();
+      daySales[day] += p.price || 0;
+    }
+  });
+
+  const maxDay = Math.max(...Object.values(daySales), 1);
+
+  let html = "";
+  Object.entries(daySales).forEach(([day, amount]) => {
+    const percentage = (amount / maxDay) * 100;
+
+    html += `
+      <div class="dayItem">
+        <div class="dayName">${dayNames[day]}</div>
+        <div class="dayBar">
+          <div class="dayFill" style="width: ${percentage}%;"></div>
+        </div>
+        <div class="dayAmount">₹${amount.toLocaleString()}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Pending Payments Tracker
+function createPendingPayments(purchases, customers) {
+  // Check for various payment status formats
+  const pendingPurchases = purchases.filter((p) => {
+    // Log to see what payment values we're getting
+    if (purchases.indexOf(p) < 3) {
+      console.log(
+        "Sample purchase payment status:",
+        p.payment,
+        p.paymentStatus,
+      );
+    }
+
+    // Check multiple possible field names and values
+    return (
+      p.payment === "unpaid" ||
+      p.payment === "pending" ||
+      p.payment === false ||
+      p.paymentStatus === "unpaid" ||
+      p.paymentStatus === "pending" ||
+      p.paid === false ||
+      !p.paid
+    );
+  });
+
+  const totalPending = pendingPurchases.reduce(
+    (sum, p) => sum + (p.price || 0),
+    0,
+  );
+  const totalPendingEl = document.getElementById("totalPending");
+  if (totalPendingEl) {
+    totalPendingEl.textContent = `₹${totalPending.toLocaleString()}`;
+  }
+
+  const customersPending = {};
+  pendingPurchases.forEach((p) => {
+    customersPending[p.customerNumber] =
+      (customersPending[p.customerNumber] || 0) + (p.price || 0);
+  });
+
+  const pendingCount = Object.keys(customersPending).length;
+  const pendingCountEl = document.getElementById("pendingCount");
+  if (pendingCountEl) {
+    pendingCountEl.textContent = `${pendingCount} customer${pendingCount !== 1 ? "s" : ""}`;
+  }
+
+  const container = document.getElementById("pendingList");
+  if (!container) {
+    console.error("pendingList container not found!");
+    return;
+  }
+
+  if (pendingCount === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: #16a34a; font-size: 18px;">No pending payments! 🎉</div>`;
+    return;
+  }
+
+  const sorted = Object.entries(customersPending).sort((a, b) => b[1] - a[1]);
+
+  let html = "";
+  sorted.forEach(([number, amount]) => {
+    const customer = customers.find((c) => c.number === number);
+    const customerName = customer ? customer.name : "Unknown";
+
+    html += `
+      <div class="pendingCard">
+        <div class="pendingCustomer">${customerName}</div>
+        <div class="pendingAmount">₹${amount.toLocaleString()}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Monthly Target Progress
+function createTargetProgress(achieved, currentMonth) {
+  const target = 150000;
+
+  const targetAmountEl = document.getElementById("targetAmount");
+  if (targetAmountEl) {
+    targetAmountEl.textContent = `₹${target.toLocaleString()}`;
+  }
+
+  const achievedAmountEl = document.getElementById("achievedAmount");
+  if (achievedAmountEl) {
+    achievedAmountEl.textContent = `₹${achieved.toLocaleString()}`;
+  }
+
+  const percentage = Math.min((achieved / target) * 100, 100);
+
+  const progressFillEl = document.getElementById("progressFill");
+  if (progressFillEl) {
+    progressFillEl.style.width = `${percentage}%`;
+  }
+
+  const progressTextEl = document.getElementById("progressText");
+  if (progressTextEl) {
+    progressTextEl.textContent = `${percentage.toFixed(1)}%`;
+  }
+
+  const now = new Date();
+  const lastDay = new Date(now.getFullYear(), currentMonth + 1, 0).getDate();
+  const remainingDays = lastDay - now.getDate();
+
+  const remainingDaysEl = document.getElementById("remainingDays");
+  if (remainingDaysEl) {
+    remainingDaysEl.textContent = `${remainingDays} days`;
+  }
+}
+*/
+
+//version - 3
+
+// Add debugging to see what's happening
+/*console.log("Monthly Sales script loaded");
+
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOM Content Loaded - Starting to load data");
+
+  let purchases = [];
+  let customers = [];
+
+  // Try multiple storage methods to find where data is stored
+
+  // Method 1: Try window.storage (if available)
+  if (typeof window.storage !== "undefined") {
+    console.log("Trying window.storage API...");
+    try {
+      const purchasesData = await window.storage.get("purchases");
+      if (purchasesData && purchasesData.value) {
+        purchases = JSON.parse(purchasesData.value);
+        console.log(
+          "Loaded from window.storage:",
+          purchases.length,
+          "purchases",
+        );
+      }
+    } catch (error) {
+      console.log("window.storage.get failed:", error);
+    }
+
+    try {
+      const customersData = await window.storage.get("customers");
+      if (customersData && customersData.value) {
+        customers = JSON.parse(customersData.value);
+        console.log(
+          "Loaded from window.storage:",
+          customers.length,
+          "customers",
+        );
+      }
+    } catch (error) {
+      console.log("window.storage.get customers failed:", error);
+    }
+  }
+
+  // Method 2: Try localStorage (fallback)
+  if (purchases.length === 0) {
+    console.log("Trying localStorage...");
+    try {
+      const localPurchases = localStorage.getItem("purchases");
+      if (localPurchases) {
+        purchases = JSON.parse(localPurchases);
+        console.log("Loaded from localStorage:", purchases.length, "purchases");
+      }
+    } catch (error) {
+      console.log("localStorage purchases failed:", error);
+    }
+
+    try {
+      const localCustomers = localStorage.getItem("customers");
+      if (localCustomers) {
+        customers = JSON.parse(localCustomers);
+        console.log("Loaded from localStorage:", customers.length, "customers");
+      }
+    } catch (error) {
+      console.log("localStorage customers failed:", error);
+    }
+  }
+
+  console.log(
+    "Final data - Purchases:",
+    purchases.length,
+    "Customers:",
+    customers.length,
+  );
+
+  // Debug: Show sample data
+  if (purchases.length > 0) {
+    console.log("Sample purchase:", purchases[0]);
+  }
+
+  // Get current month info
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  console.log("Current month:", currentMonth, "Year:", currentYear);
+
+  // Filter this month's purchases
+  const thisMonthPurchases = purchases.filter((p) => {
+    if (!p.timestamp) {
+      console.log("Purchase missing timestamp:", p);
+      return false;
+    }
+    const purchaseDate = new Date(p.timestamp);
+    const isThisMonth =
+      purchaseDate.getMonth() === currentMonth &&
+      purchaseDate.getFullYear() === currentYear;
+    return isThisMonth;
+  });
+
+  console.log("This month's purchases:", thisMonthPurchases.length);
+
+  // Filter last month's purchases for comparison
+  const lastMonth = new Date(currentYear, currentMonth - 1, 1);
+  const lastMonthPurchases = purchases.filter((p) => {
+    if (!p.timestamp) return false;
+    const purchaseDate = new Date(p.timestamp);
+    return (
+      purchaseDate.getMonth() === lastMonth.getMonth() &&
+      purchaseDate.getFullYear() === lastMonth.getFullYear()
+    );
+  });
+
+  console.log("Last month's purchases:", lastMonthPurchases.length);
+
+  // ========== UPDATE METRICS CARDS ==========
+
+  // 1. This Month's Revenue (only count paid invoices)
+  const monthRevenue = thisMonthPurchases
+    .filter((p) => p.paymentStatus !== "pending")
+    .reduce((sum, p) => sum + (p.price || 0), 0);
+  console.log("Month revenue (paid only):", monthRevenue);
+
+  const monthRevenueEl = document.getElementById("monthRevenue");
+  if (monthRevenueEl) {
+    monthRevenueEl.textContent = `₹${monthRevenue.toLocaleString()}`;
+  } else {
+    console.error("Element 'monthRevenue' not found!");
+  }
+
+  // Total Customers Count
+  const totalCustomersCount = customers.length;
+  const totalCustomersEl = document.getElementById("totalCustomers");
+  if (totalCustomersEl) {
+    totalCustomersEl.textContent = totalCustomersCount;
+  }
+
+  // Total Invoices
+  const totalInvoices = purchases.length;
+  const totalInvoicesEl = document.getElementById("totalInvoices");
+  if (totalInvoicesEl) {
+    totalInvoicesEl.textContent = totalInvoices;
+  }
+
+  // 2. Total Orders
+  const totalOrdersEl = document.getElementById("totalOrders");
+  if (totalOrdersEl) {
+    totalOrdersEl.textContent = thisMonthPurchases.length;
+  } else {
+    console.error("Element 'totalOrders' not found!");
+  }
+
+  // 3. New Customers This Month
+  const firstOfMonth = new Date(currentYear, currentMonth, 1).getTime();
+  const newCustomersCount = customers.filter((c) => {
+    const customerPurchases = purchases.filter(
+      (p) => p.customerNumber === c.number,
+    );
+    if (customerPurchases.length === 0) return false;
+    const firstPurchase = Math.min(
+      ...customerPurchases.map((p) => p.timestamp),
+    );
+    return firstPurchase >= firstOfMonth;
+  }).length;
+
+  const newCustomersEl = document.getElementById("newCustomers");
+  if (newCustomersEl) {
+    newCustomersEl.textContent = newCustomersCount;
+  } else {
+    console.error("Element 'newCustomers' not found!");
+  }
+
+  // 4. Growth Rate vs Last Month
+  const lastMonthRevenue = lastMonthPurchases.reduce(
+    (sum, p) => sum + (p.price || 0),
+    0,
+  );
+  let growthRate = 0;
+  if (lastMonthRevenue > 0) {
+    growthRate = (
+      ((monthRevenue - lastMonthRevenue) / lastMonthRevenue) *
+      100
+    ).toFixed(1);
+  } else if (monthRevenue > 0) {
+    growthRate = 100;
+  }
+
+  const growthEl = document.getElementById("growthRate");
+  if (growthEl) {
+    growthEl.textContent = `${growthRate >= 0 ? "↑" : "↓"} ${Math.abs(
+      growthRate,
+    )}%`;
+    growthEl.style.color = growthRate >= 0 ? "#16a34a" : "#dc2626";
+  } else {
+    console.error("Element 'growthRate' not found!");
+  }
+
+  // ========== CHARTS ==========
+  console.log("Creating charts...");
+
+  try {
+    createDailySalesChart(thisMonthPurchases, currentMonth, currentYear);
+    console.log("Daily sales chart created");
+  } catch (e) {
+    console.error("Error creating daily sales chart:", e);
+  }
+
+  try {
+    createWeeklyBreakdown(thisMonthPurchases);
+    console.log("Weekly breakdown created");
+  } catch (e) {
+    console.error("Error creating weekly breakdown:", e);
+  }
+
+  try {
+    createPaymentDistribution(thisMonthPurchases);
+    console.log("Payment distribution created");
+  } catch (e) {
+    console.error("Error creating payment distribution:", e);
+  }
+
+  try {
+    createTopCustomers(thisMonthPurchases, customers);
+    console.log("Top customers created");
+  } catch (e) {
+    console.error("Error creating top customers:", e);
+  }
+
+  try {
+    createBestProducts(thisMonthPurchases);
+    console.log("Best products created");
+  } catch (e) {
+    console.error("Error creating best products:", e);
+  }
+
+  try {
+    createSalesByDay(thisMonthPurchases);
+    console.log("Sales by day created");
+  } catch (e) {
+    console.error("Error creating sales by day:", e);
+  }
+
+  try {
+    createPendingPayments(thisMonthPurchases, customers);
+    console.log("Pending payments created");
+  } catch (e) {
+    console.error("Error creating pending payments:", e);
+  }
+
+  try {
+    createTargetProgress(monthRevenue, currentMonth);
+    console.log("Target progress created");
+  } catch (e) {
+    console.error("Error creating target progress:", e);
+  }
+
+  console.log("All charts creation attempted");
+});
+
+// Daily Sales Line Chart
+function createDailySalesChart(purchases, month, year) {
+  const container = document.getElementById("dailySalesChart");
+  if (!container) {
+    console.error("dailySalesChart container not found!");
+    return;
+  }
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const dailySales = {};
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    dailySales[day] = 0;
+  }
+
+  purchases.forEach((p) => {
+    if (p.timestamp) {
+      const day = new Date(p.timestamp).getDate();
+      dailySales[day] += p.price || 0;
+    }
+  });
+
+  const maxSale = Math.max(...Object.values(dailySales), 1);
+  const chartHeight = 300;
+  const chartWidth = Math.max(daysInMonth * 25, 600);
+  const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+
+  let svg = `<div style="overflow-x: auto;"><svg width="${chartWidth}" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}">`;
+
+  // Axes
+  svg += `<line x1="${padding.left}" y1="${chartHeight - padding.bottom}" x2="${
+    chartWidth - padding.right
+  }" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
+  svg += `<line x1="${padding.left}" y1="${padding.top}" x2="${
+    padding.left
+  }" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
+
+  // Y-axis labels
+  const ySteps = 5;
+  for (let i = 0; i <= ySteps; i++) {
+    const value = (maxSale / ySteps) * i;
+    const y =
+      chartHeight -
+      padding.bottom -
+      (value / maxSale) * (chartHeight - padding.top - padding.bottom);
+    svg += `<text x="${padding.left - 10}" y="${
+      y + 5
+    }" text-anchor="end" font-size="10" fill="#666">₹${Math.round(
+      value,
+    )}</text>`;
+    svg += `<line x1="${padding.left}" y1="${y}" x2="${
+      chartWidth - padding.right
+    }" y2="${y}" stroke="#f0f0f0" stroke-width="1"/>`;
+  }
+
+  // Plot line
+  const days = Object.keys(dailySales);
+  const xStep = (chartWidth - padding.left - padding.right) / (days.length - 1);
+  let pathData = "";
+
+  days.forEach((day, i) => {
+    const x = padding.left + i * xStep;
+    const y =
+      chartHeight -
+      padding.bottom -
+      (dailySales[day] / maxSale) *
+        (chartHeight - padding.top - padding.bottom);
+
+    if (i === 0) {
+      pathData = `M ${x} ${y}`;
+    } else {
+      pathData += ` L ${x} ${y}`;
+    }
+
+    svg += `<circle cx="${x}" cy="${y}" r="3" fill="#2563eb"/>`;
+
+    if (i % 5 === 0) {
+      svg += `<text x="${x}" y="${
+        chartHeight - padding.bottom + 15
+      }" text-anchor="middle" font-size="10" fill="#666">${day}</text>`;
+    }
+  });
+
+  svg += `<path d="${pathData}" fill="none" stroke="#2563eb" stroke-width="2.5"/>`;
+  svg += `</svg></div>`;
+  container.innerHTML = svg;
+}
+
+// Weekly Breakdown
+function createWeeklyBreakdown(purchases) {
+  const container = document.getElementById("weeklyBreakdown");
+  if (!container) {
+    console.error("weeklyBreakdown container not found!");
+    return;
+  }
+
+  const weeks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+  purchases.forEach((p) => {
+    if (p.timestamp) {
+      const day = new Date(p.timestamp).getDate();
+      const week = Math.ceil(day / 7);
+      weeks[week] += p.price || 0;
+    }
+  });
+
+  const maxWeek = Math.max(...Object.values(weeks), 1);
+  const isMobile = window.innerWidth <= 480;
+  const chartWidth = isMobile ? 300 : 400;
+  const chartHeight = 250;
+  const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+
+  let svg = `<svg width="100%" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}" preserveAspectRatio="xMidYMid meet" style="max-width: 100%;">`;
+
+  const barWidth = (chartWidth - padding.left - padding.right) / 5 - 20;
+
+  Object.entries(weeks).forEach(([week, amount], i) => {
+    const x =
+      padding.left + (i * (chartWidth - padding.left - padding.right)) / 5 + 10;
+    const barHeight =
+      (amount / maxWeek) * (chartHeight - padding.top - padding.bottom);
+    const y = chartHeight - padding.bottom - barHeight;
+
+    svg += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" fill="#9333ea" rx="6"/>`;
+    svg += `<text x="${x + barWidth / 2}" y="${
+      chartHeight - padding.bottom + 20
+    }" text-anchor="middle" font-size="${
+      isMobile ? "10" : "12"
+    }" fill="#666">Week ${week}</text>`;
+    svg += `<text x="${x + barWidth / 2}" y="${
+      y - 10
+    }" text-anchor="middle" font-size="${
+      isMobile ? "9" : "11"
+    }" fill="#333" font-weight="600">₹${Math.round(
+      amount,
+    ).toLocaleString()}</text>`;
+  });
+
+  svg += `</svg>`;
+  container.innerHTML = svg;
+}
+
+// Payment Distribution
+function createPaymentDistribution(purchases) {
+  const container = document.getElementById("paymentDistribution");
+  if (!container) {
+    console.error("paymentDistribution container not found!");
+    return;
+  }
+
+  const paymentMethods = {};
+  purchases.forEach((p) => {
+    const method = p.paymentMethod || "Unknown";
+    paymentMethods[method] = (paymentMethods[method] || 0) + 1;
+  });
+
+  const colors = {
+    cash: "#3b82f6",
+    upi: "#8b5cf6",
+    card: "#ec4899",
+    bank: "#06b6d4",
+    Unknown: "#6b7280",
+  };
+
+  const total = purchases.length || 1;
+  const isMobile = window.innerWidth <= 768;
+  const radius = isMobile ? 80 : 100;
+  const svgSize = isMobile ? 220 : 260;
+  const centerX = svgSize / 2;
+  const centerY = svgSize / 2;
+  let currentAngle = 0;
+
+  let html = `<div style="display: flex; align-items: center; justify-content: space-around; gap: 30px; flex-wrap: wrap; padding: 10px;">`;
+  html += `<svg width="${svgSize}" height="${svgSize}" viewBox="0 0 ${svgSize} ${svgSize}" style="flex-shrink: 0; background: white; border-radius: 8px;">`;
+
+  Object.entries(paymentMethods).forEach(([method, count]) => {
+    const percentage = (count / total) * 100;
+    const sliceAngle = (percentage / 100) * 360;
+
+    const startAngle = currentAngle;
+    const endAngle = currentAngle + sliceAngle;
+
+    const x1 = centerX + radius * Math.cos(((startAngle - 90) * Math.PI) / 180);
+    const y1 = centerY + radius * Math.sin(((startAngle - 90) * Math.PI) / 180);
+    const x2 = centerX + radius * Math.cos(((endAngle - 90) * Math.PI) / 180);
+    const y2 = centerY + radius * Math.sin(((endAngle - 90) * Math.PI) / 180);
+
+    const largeArc = sliceAngle > 180 ? 1 : 0;
+    const color = colors[method] || colors["Unknown"];
+
+    html += `<path d="M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z" fill="${color}" stroke="white" stroke-width="3"/>`;
+
+    currentAngle = endAngle;
+  });
+
+  html += `</svg><div style="display: flex; flex-direction: column; gap: 12px; min-width: 180px;">`;
+
+  Object.entries(paymentMethods).forEach(([method, count]) => {
+    const percentage = ((count / total) * 100).toFixed(1);
+    const color = colors[method] || colors["Unknown"];
+
+    html += `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 24px; height: 24px; background: ${color}; border-radius: 4px; flex-shrink: 0;"></div>
+        <span style="font-size: ${
+          isMobile ? "14px" : "15px"
+        }; color: #333; font-weight: 500;">${method}: ${count} (${percentage}%)</span>
+      </div>
+    `;
+  });
+
+  html += `</div></div>`;
+  container.innerHTML = html;
+}
+
+// Top Customers Leaderboard
+function createTopCustomers(purchases, customers) {
+  const container = document.getElementById("topCustomers");
+  if (!container) {
+    console.error("topCustomers container not found!");
+    return;
+  }
+
+  const customerSpending = {};
+  purchases.forEach((p) => {
+    customerSpending[p.customerNumber] =
+      (customerSpending[p.customerNumber] || 0) + (p.price || 0);
+  });
+
+  const sorted = Object.entries(customerSpending)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  if (sorted.length === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: #666;">No customers this month</div>`;
+    return;
+  }
+
+  let html = "";
+  sorted.forEach(([number, amount], index) => {
+    const customer = customers.find((c) => c.number === number);
+    const customerName = customer ? customer.name : "Unknown";
+    const orderCount = purchases.filter(
+      (p) => p.customerNumber === number,
+    ).length;
+
+    let rankClass = "rankOther";
+    if (index === 0) rankClass = "rank1";
+    else if (index === 1) rankClass = "rank2";
+    else if (index === 2) rankClass = "rank3";
+
+    html += `
+      <div class="customerRank">
+        <div class="rankBadge ${rankClass}">${index + 1}</div>
+        <div class="customerInfo">
+          <div class="customerName">${customerName}</div>
+          <div class="orderCount">${orderCount} orders</div>
+        </div>
+        <div class="customerSpent">₹${amount.toLocaleString()}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Best Selling Products
+function createBestProducts(purchases) {
+  const container = document.getElementById("bestProducts");
+  if (!container) {
+    console.error("bestProducts container not found!");
+    return;
+  }
+
+  const productStats = {};
+
+  purchases.forEach((p) => {
+    if (Array.isArray(p.items)) {
+      p.items.forEach((item) => {
+        const itemName = item.name || "Unknown";
+        if (!productStats[itemName]) {
+          productStats[itemName] = { revenue: 0, quantity: 0 };
+        }
+        productStats[itemName].revenue +=
+          (item.quantity || 0) * (item.price || 0);
+        productStats[itemName].quantity += item.quantity || 0;
+      });
+    } else {
+      const item = p.items || "Unknown";
+      if (!productStats[item]) {
+        productStats[item] = { revenue: 0, quantity: 0 };
+      }
+      productStats[item].revenue += p.price || 0;
+      productStats[item].quantity += p.quantity || 1;
+    }
+  });
+
+  const sorted = Object.entries(productStats)
+    .sort((a, b) => b[1].revenue - a[1].revenue)
+    .slice(0, 5);
+
+  if (sorted.length === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: #666;">No products sold this month</div>`;
+    return;
+  }
+
+  const maxRevenue = sorted[0][1].revenue || 1;
+
+  let html = "";
+  sorted.forEach(([product, stats]) => {
+    const percentage = (stats.revenue / maxRevenue) * 100;
+
+    html += `
+      <div class="productBar">
+        <div class="productHeader">
+          <div class="productName">${product} (${stats.quantity} units)</div>
+          <div class="productRevenue">₹${stats.revenue.toLocaleString()}</div>
+        </div>
+        <div class="barContainer">
+          <div class="barFill" style="width: ${percentage}%;">
+            <div class="barText">${percentage.toFixed(0)}%</div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Sales by Day of Week
+function createSalesByDay(purchases) {
+  const container = document.getElementById("salesByDay");
+  if (!container) {
+    console.error("salesByDay container not found!");
+    return;
+  }
+
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const daySales = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+
+  purchases.forEach((p) => {
+    if (p.timestamp) {
+      const day = new Date(p.timestamp).getDay();
+      daySales[day] += p.price || 0;
+    }
+  });
+
+  const maxDay = Math.max(...Object.values(daySales), 1);
+
+  let html = "";
+  Object.entries(daySales).forEach(([day, amount]) => {
+    const percentage = (amount / maxDay) * 100;
+
+    html += `
+      <div class="dayItem">
+        <div class="dayName">${dayNames[day]}</div>
+        <div class="dayBar">
+          <div class="dayFill" style="width: ${percentage}%;"></div>
+        </div>
+        <div class="dayAmount">₹${amount.toLocaleString()}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Pending Payments Tracker
+function createPendingPayments(purchases, customers) {
+  // Filter for pending payments only
+  const pendingPurchases = purchases.filter((p) => {
+    return p.paymentStatus === "pending";
+  });
+
+  const totalPending = pendingPurchases.reduce(
+    (sum, p) => sum + (p.price || 0),
+    0,
+  );
+  const totalPendingEl = document.getElementById("totalPending");
+  if (totalPendingEl) {
+    totalPendingEl.textContent = `₹${totalPending.toLocaleString()}`;
+  }
+
+  const customersPending = {};
+  pendingPurchases.forEach((p) => {
+    customersPending[p.customerNumber] =
+      (customersPending[p.customerNumber] || 0) + (p.price || 0);
+  });
+
+  const pendingCount = Object.keys(customersPending).length;
+  const pendingCountEl = document.getElementById("pendingCount");
+  if (pendingCountEl) {
+    pendingCountEl.textContent = `${pendingCount} customer${pendingCount !== 1 ? "s" : ""}`;
+  }
+
+  const container = document.getElementById("pendingList");
+  if (!container) {
+    console.error("pendingList container not found!");
+    return;
+  }
+
+  if (pendingCount === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: #16a34a; font-size: 18px;">No pending payments! 🎉</div>`;
+    return;
+  }
+
+  const sorted = Object.entries(customersPending).sort((a, b) => b[1] - a[1]);
+
+  let html = "";
+  sorted.forEach(([number, amount]) => {
+    const customer = customers.find((c) => c.number === number);
+    const customerName = customer ? customer.name : "Unknown";
+
+    html += `
+      <div class="pendingCard">
+        <div class="pendingCustomer">${customerName}</div>
+        <div class="pendingAmount">₹${amount.toLocaleString()}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Monthly Target Progress
+function createTargetProgress(achieved, currentMonth) {
+  const target = 150000;
+
+  const targetAmountEl = document.getElementById("targetAmount");
+  if (targetAmountEl) {
+    targetAmountEl.textContent = `₹${target.toLocaleString()}`;
+  }
+
+  const achievedAmountEl = document.getElementById("achievedAmount");
+  if (achievedAmountEl) {
+    achievedAmountEl.textContent = `₹${achieved.toLocaleString()}`;
+  }
+
+  const percentage = Math.min((achieved / target) * 100, 100);
+
+  const progressFillEl = document.getElementById("progressFill");
+  if (progressFillEl) {
+    progressFillEl.style.width = `${percentage}%`;
+  }
+
+  const progressTextEl = document.getElementById("progressText");
+  if (progressTextEl) {
+    progressTextEl.textContent = `${percentage.toFixed(1)}%`;
+  }
+
+  const now = new Date();
+  const lastDay = new Date(now.getFullYear(), currentMonth + 1, 0).getDate();
+  const remainingDays = lastDay - now.getDate();
+
+  const remainingDaysEl = document.getElementById("remainingDays");
+  if (remainingDaysEl) {
+    remainingDaysEl.textContent = `${remainingDays} days`;
+  }
+}*/
+
+// version 4
+
+// Add debugging to see what's happening
+console.log("Monthly Sales script loaded");
+
+document.addEventListener("DOMContentLoaded", async () => {
+  console.log("DOM Content Loaded - Starting to load data");
+
+  let purchases = [];
+  let customers = [];
+
+  // Try multiple storage methods to find where data is stored
+
+  // Method 1: Try window.storage (if available)
+  if (typeof window.storage !== "undefined") {
+    console.log("Trying window.storage API...");
+    try {
+      const purchasesData = await window.storage.get("purchases");
+      if (purchasesData && purchasesData.value) {
+        purchases = JSON.parse(purchasesData.value);
+        console.log(
+          "Loaded from window.storage:",
+          purchases.length,
+          "purchases",
+        );
+      }
+    } catch (error) {
+      console.log("window.storage.get failed:", error);
+    }
+
+    try {
+      const customersData = await window.storage.get("customers");
+      if (customersData && customersData.value) {
+        customers = JSON.parse(customersData.value);
+        console.log(
+          "Loaded from window.storage:",
+          customers.length,
+          "customers",
+        );
+      }
+    } catch (error) {
+      console.log("window.storage.get customers failed:", error);
+    }
+  }
+
+  // Method 2: Try localStorage (fallback)
+  if (purchases.length === 0) {
+    console.log("Trying localStorage...");
+    try {
+      const localPurchases = localStorage.getItem("purchases");
+      if (localPurchases) {
+        purchases = JSON.parse(localPurchases);
+        console.log("Loaded from localStorage:", purchases.length, "purchases");
+      }
+    } catch (error) {
+      console.log("localStorage purchases failed:", error);
+    }
+
+    try {
+      const localCustomers = localStorage.getItem("customers");
+      if (localCustomers) {
+        customers = JSON.parse(localCustomers);
+        console.log("Loaded from localStorage:", customers.length, "customers");
+      }
+    } catch (error) {
+      console.log("localStorage customers failed:", error);
+    }
+  }
+
+  console.log(
+    "Final data - Purchases:",
+    purchases.length,
+    "Customers:",
+    customers.length,
+  );
+
+  // Debug: Show sample data
+  if (purchases.length > 0) {
+    console.log("Sample purchase:", purchases[0]);
+  }
+
+  // Get current month info
+  const now = new Date();
+  const currentMonth = now.getMonth();
+  const currentYear = now.getFullYear();
+  console.log("Current month:", currentMonth, "Year:", currentYear);
+
+  // Filter this month's purchases
+  const thisMonthPurchases = purchases.filter((p) => {
+    if (!p.timestamp) {
+      console.log("Purchase missing timestamp:", p);
+      return false;
+    }
+    const purchaseDate = new Date(p.timestamp);
+    const isThisMonth =
+      purchaseDate.getMonth() === currentMonth &&
+      purchaseDate.getFullYear() === currentYear;
+    return isThisMonth;
+  });
+
+  console.log("This month's purchases:", thisMonthPurchases.length);
+
+  // Filter last month's purchases for comparison
+  const lastMonth = new Date(currentYear, currentMonth - 1, 1);
+  const lastMonthPurchases = purchases.filter((p) => {
+    if (!p.timestamp) return false;
+    const purchaseDate = new Date(p.timestamp);
+    return (
+      purchaseDate.getMonth() === lastMonth.getMonth() &&
+      purchaseDate.getFullYear() === lastMonth.getFullYear()
+    );
+  });
+
+  console.log("Last month's purchases:", lastMonthPurchases.length);
+
+  // ========== UPDATE METRICS CARDS ==========
+
+  // 1. This Month's Revenue (only count paid invoices)
+  const monthRevenue = thisMonthPurchases
+    .filter((p) => p.payment === "paid")
+    .reduce((sum, p) => sum + (p.price || 0), 0);
+  console.log("Month revenue (paid only):", monthRevenue);
+
+  const monthRevenueEl = document.getElementById("monthRevenue");
+  if (monthRevenueEl) {
+    monthRevenueEl.textContent = `₹${monthRevenue.toLocaleString()}`;
+  } else {
+    console.error("Element 'monthRevenue' not found!");
+  }
+
+  // Total Customers Count
+  const totalCustomersCount = customers.length;
+  const totalCustomersEl = document.getElementById("totalCustomers");
+  if (totalCustomersEl) {
+    totalCustomersEl.textContent = totalCustomersCount;
+  }
+
+  // Total Invoices
+  const totalInvoices = purchases.length;
+  const totalInvoicesEl = document.getElementById("totalInvoices");
+  if (totalInvoicesEl) {
+    totalInvoicesEl.textContent = totalInvoices;
+  }
+
+  // 2. Total Orders
+  const totalOrdersEl = document.getElementById("totalOrders");
+  if (totalOrdersEl) {
+    totalOrdersEl.textContent = thisMonthPurchases.length;
+  } else {
+    console.error("Element 'totalOrders' not found!");
+  }
+
+  // 3. New Customers This Month
+  const firstOfMonth = new Date(currentYear, currentMonth, 1).getTime();
+  const newCustomersCount = customers.filter((c) => {
+    const customerPurchases = purchases.filter(
+      (p) => p.customerNumber === c.number,
+    );
+    if (customerPurchases.length === 0) return false;
+    const firstPurchase = Math.min(
+      ...customerPurchases.map((p) => p.timestamp),
+    );
+    return firstPurchase >= firstOfMonth;
+  }).length;
+
+  const newCustomersEl = document.getElementById("newCustomers");
+  if (newCustomersEl) {
+    newCustomersEl.textContent = newCustomersCount;
+  } else {
+    console.error("Element 'newCustomers' not found!");
+  }
+
+  // 4. Growth Rate vs Last Month
+  const lastMonthRevenue = lastMonthPurchases.reduce(
+    (sum, p) => sum + (p.price || 0),
+    0,
+  );
+  let growthRate = 0;
+  if (lastMonthRevenue > 0) {
+    growthRate = (
+      ((monthRevenue - lastMonthRevenue) / lastMonthRevenue) *
+      100
+    ).toFixed(1);
+  } else if (monthRevenue > 0) {
+    growthRate = 100;
+  }
+
+  const growthEl = document.getElementById("growthRate");
+  if (growthEl) {
+    growthEl.textContent = `${growthRate >= 0 ? "↑" : "↓"} ${Math.abs(
+      growthRate,
+    )}%`;
+    growthEl.style.color = growthRate >= 0 ? "#16a34a" : "#dc2626";
+  } else {
+    console.error("Element 'growthRate' not found!");
+  }
+
+  // ========== CHARTS ==========
+  console.log("Creating charts...");
+
+  try {
+    createDailySalesChart(thisMonthPurchases, currentMonth, currentYear);
+    console.log("Daily sales chart created");
+  } catch (e) {
+    console.error("Error creating daily sales chart:", e);
+  }
+
+  try {
+    createWeeklyBreakdown(thisMonthPurchases);
+    console.log("Weekly breakdown created");
+  } catch (e) {
+    console.error("Error creating weekly breakdown:", e);
+  }
+
+  try {
+    createPaymentDistribution(thisMonthPurchases);
+    console.log("Payment distribution created");
+  } catch (e) {
+    console.error("Error creating payment distribution:", e);
+  }
+
+  try {
+    createTopCustomers(thisMonthPurchases, customers);
+    console.log("Top customers created");
+  } catch (e) {
+    console.error("Error creating top customers:", e);
+  }
+
+  try {
+    createBestProducts(thisMonthPurchases);
+    console.log("Best products created");
+  } catch (e) {
+    console.error("Error creating best products:", e);
+  }
+
+  try {
+    createSalesByDay(thisMonthPurchases);
+    console.log("Sales by day created");
+  } catch (e) {
+    console.error("Error creating sales by day:", e);
+  }
+
+  try {
+    createPendingPayments(thisMonthPurchases, customers);
+    console.log("Pending payments created");
+  } catch (e) {
+    console.error("Error creating pending payments:", e);
+  }
+
+  try {
+    createTargetProgress(monthRevenue, currentMonth);
+    console.log("Target progress created");
+  } catch (e) {
+    console.error("Error creating target progress:", e);
+  }
+
+  console.log("All charts creation attempted");
+});
+
+// Daily Sales Line Chart
+function createDailySalesChart(purchases, month, year) {
+  const container = document.getElementById("dailySalesChart");
+  if (!container) {
+    console.error("dailySalesChart container not found!");
+    return;
+  }
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const dailySales = {};
+
+  for (let day = 1; day <= daysInMonth; day++) {
+    dailySales[day] = 0;
+  }
+
+  purchases.forEach((p) => {
+    if (p.timestamp) {
+      const day = new Date(p.timestamp).getDate();
+      dailySales[day] += p.price || 0;
+    }
+  });
+
+  const maxSale = Math.max(...Object.values(dailySales), 1);
+  const chartHeight = 300;
+  const chartWidth = Math.max(daysInMonth * 25, 600);
+  const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+
+  let svg = `<div style="overflow-x: auto;"><svg width="${chartWidth}" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}">`;
+
+  // Axes
+  svg += `<line x1="${padding.left}" y1="${chartHeight - padding.bottom}" x2="${
+    chartWidth - padding.right
+  }" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
+  svg += `<line x1="${padding.left}" y1="${padding.top}" x2="${
+    padding.left
+  }" y2="${chartHeight - padding.bottom}" stroke="#ddd" stroke-width="2"/>`;
+
+  // Y-axis labels
+  const ySteps = 5;
+  for (let i = 0; i <= ySteps; i++) {
+    const value = (maxSale / ySteps) * i;
+    const y =
+      chartHeight -
+      padding.bottom -
+      (value / maxSale) * (chartHeight - padding.top - padding.bottom);
+    svg += `<text x="${padding.left - 10}" y="${
+      y + 5
+    }" text-anchor="end" font-size="10" fill="#666">₹${Math.round(
+      value,
+    )}</text>`;
+    svg += `<line x1="${padding.left}" y1="${y}" x2="${
+      chartWidth - padding.right
+    }" y2="${y}" stroke="#f0f0f0" stroke-width="1"/>`;
+  }
+
+  // Plot line
+  const days = Object.keys(dailySales);
+  const xStep = (chartWidth - padding.left - padding.right) / (days.length - 1);
+  let pathData = "";
+
+  days.forEach((day, i) => {
+    const x = padding.left + i * xStep;
+    const y =
+      chartHeight -
+      padding.bottom -
+      (dailySales[day] / maxSale) *
+        (chartHeight - padding.top - padding.bottom);
+
+    if (i === 0) {
+      pathData = `M ${x} ${y}`;
+    } else {
+      pathData += ` L ${x} ${y}`;
+    }
+
+    svg += `<circle cx="${x}" cy="${y}" r="3" fill="#2563eb"/>`;
+
+    if (i % 5 === 0) {
+      svg += `<text x="${x}" y="${
+        chartHeight - padding.bottom + 15
+      }" text-anchor="middle" font-size="10" fill="#666">${day}</text>`;
+    }
+  });
+
+  svg += `<path d="${pathData}" fill="none" stroke="#2563eb" stroke-width="2.5"/>`;
+  svg += `</svg></div>`;
+  container.innerHTML = svg;
+}
+
+// Weekly Breakdown
+function createWeeklyBreakdown(purchases) {
+  const container = document.getElementById("weeklyBreakdown");
+  if (!container) {
+    console.error("weeklyBreakdown container not found!");
+    return;
+  }
+
+  const weeks = { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 };
+
+  purchases.forEach((p) => {
+    if (p.timestamp) {
+      const day = new Date(p.timestamp).getDate();
+      const week = Math.ceil(day / 7);
+      weeks[week] += p.price || 0;
+    }
+  });
+
+  const maxWeek = Math.max(...Object.values(weeks), 1);
+  const isMobile = window.innerWidth <= 480;
+  const chartWidth = isMobile ? 300 : 400;
+  const chartHeight = 250;
+  const padding = { top: 20, right: 20, bottom: 40, left: 60 };
+
+  let svg = `<svg width="100%" height="${chartHeight}" viewBox="0 0 ${chartWidth} ${chartHeight}" preserveAspectRatio="xMidYMid meet" style="max-width: 100%;">`;
+
+  const barWidth = (chartWidth - padding.left - padding.right) / 5 - 20;
+
+  Object.entries(weeks).forEach(([week, amount], i) => {
+    const x =
+      padding.left + (i * (chartWidth - padding.left - padding.right)) / 5 + 10;
+    const barHeight =
+      (amount / maxWeek) * (chartHeight - padding.top - padding.bottom);
+    const y = chartHeight - padding.bottom - barHeight;
+
+    svg += `<rect x="${x}" y="${y}" width="${barWidth}" height="${barHeight}" fill="#9333ea" rx="6"/>`;
+    svg += `<text x="${x + barWidth / 2}" y="${
+      chartHeight - padding.bottom + 20
+    }" text-anchor="middle" font-size="${
+      isMobile ? "10" : "12"
+    }" fill="#666">Week ${week}</text>`;
+    svg += `<text x="${x + barWidth / 2}" y="${
+      y - 10
+    }" text-anchor="middle" font-size="${
+      isMobile ? "9" : "11"
+    }" fill="#333" font-weight="600">₹${Math.round(
+      amount,
+    ).toLocaleString()}</text>`;
+  });
+
+  svg += `</svg>`;
+  container.innerHTML = svg;
+}
+
+// Payment Distribution
+function createPaymentDistribution(purchases) {
+  const container = document.getElementById("paymentDistribution");
+  if (!container) {
+    console.error("paymentDistribution container not found!");
+    return;
+  }
+
+  const paymentMethods = {};
+  purchases.forEach((p) => {
+    const method = p.paymentMethod || "Unknown";
+    paymentMethods[method] = (paymentMethods[method] || 0) + 1;
+  });
+
+  const colors = {
+    cash: "#3b82f6",
+    upi: "#8b5cf6",
+    card: "#ec4899",
+    bank: "#06b6d4",
+    Unknown: "#6b7280",
+  };
+
+  const total = purchases.length || 1;
+  const isMobile = window.innerWidth <= 768;
+  const radius = isMobile ? 80 : 100;
+  const svgSize = isMobile ? 220 : 260;
+  const centerX = svgSize / 2;
+  const centerY = svgSize / 2;
+  let currentAngle = 0;
+
+  let html = `<div style="display: flex; align-items: center; justify-content: space-around; gap: 30px; flex-wrap: wrap; padding: 10px;">`;
+  html += `<svg width="${svgSize}" height="${svgSize}" viewBox="0 0 ${svgSize} ${svgSize}" style="flex-shrink: 0; background: white; border-radius: 8px;">`;
+
+  Object.entries(paymentMethods).forEach(([method, count]) => {
+    const percentage = (count / total) * 100;
+    const sliceAngle = (percentage / 100) * 360;
+
+    const startAngle = currentAngle;
+    const endAngle = currentAngle + sliceAngle;
+
+    const x1 = centerX + radius * Math.cos(((startAngle - 90) * Math.PI) / 180);
+    const y1 = centerY + radius * Math.sin(((startAngle - 90) * Math.PI) / 180);
+    const x2 = centerX + radius * Math.cos(((endAngle - 90) * Math.PI) / 180);
+    const y2 = centerY + radius * Math.sin(((endAngle - 90) * Math.PI) / 180);
+
+    const largeArc = sliceAngle > 180 ? 1 : 0;
+    const color = colors[method] || colors["Unknown"];
+
+    html += `<path d="M ${centerX} ${centerY} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z" fill="${color}" stroke="white" stroke-width="3"/>`;
+
+    currentAngle = endAngle;
+  });
+
+  html += `</svg><div style="display: flex; flex-direction: column; gap: 12px; min-width: 180px;">`;
+
+  Object.entries(paymentMethods).forEach(([method, count]) => {
+    const percentage = ((count / total) * 100).toFixed(1);
+    const color = colors[method] || colors["Unknown"];
+
+    html += `
+      <div style="display: flex; align-items: center; gap: 10px;">
+        <div style="width: 24px; height: 24px; background: ${color}; border-radius: 4px; flex-shrink: 0;"></div>
+        <span style="font-size: ${
+          isMobile ? "14px" : "15px"
+        }; color: #333; font-weight: 500;">${method}: ${count} (${percentage}%)</span>
+      </div>
+    `;
+  });
+
+  html += `</div></div>`;
+  container.innerHTML = html;
+}
+
+// Top Customers Leaderboard
+function createTopCustomers(purchases, customers) {
+  const container = document.getElementById("topCustomers");
+  if (!container) {
+    console.error("topCustomers container not found!");
+    return;
+  }
+
+  const customerSpending = {};
+  purchases.forEach((p) => {
+    customerSpending[p.customerNumber] =
+      (customerSpending[p.customerNumber] || 0) + (p.price || 0);
+  });
+
+  const sorted = Object.entries(customerSpending)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  if (sorted.length === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: #666;">No customers this month</div>`;
+    return;
+  }
+
+  let html = "";
+  sorted.forEach(([number, amount], index) => {
+    const customer = customers.find((c) => c.number === number);
+    const customerName = customer ? customer.name : "Unknown";
+    const orderCount = purchases.filter(
+      (p) => p.customerNumber === number,
+    ).length;
+
+    let rankClass = "rankOther";
+    if (index === 0) rankClass = "rank1";
+    else if (index === 1) rankClass = "rank2";
+    else if (index === 2) rankClass = "rank3";
+
+    html += `
+      <div class="customerRank">
+        <div class="rankBadge ${rankClass}">${index + 1}</div>
+        <div class="customerInfo">
+          <div class="customerName">${customerName}</div>
+          <div class="orderCount">${orderCount} orders</div>
+        </div>
+        <div class="customerSpent">₹${amount.toLocaleString()}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Best Selling Products
+function createBestProducts(purchases) {
+  const container = document.getElementById("bestProducts");
+  if (!container) {
+    console.error("bestProducts container not found!");
+    return;
+  }
+
+  const productStats = {};
+
+  purchases.forEach((p) => {
+    if (Array.isArray(p.items)) {
+      p.items.forEach((item) => {
+        const itemName = item.name || "Unknown";
+        if (!productStats[itemName]) {
+          productStats[itemName] = { revenue: 0, quantity: 0 };
+        }
+        productStats[itemName].revenue +=
+          (item.quantity || 0) * (item.price || 0);
+        productStats[itemName].quantity += item.quantity || 0;
+      });
+    } else {
+      const item = p.items || "Unknown";
+      if (!productStats[item]) {
+        productStats[item] = { revenue: 0, quantity: 0 };
+      }
+      productStats[item].revenue += p.price || 0;
+      productStats[item].quantity += p.quantity || 1;
+    }
+  });
+
+  const sorted = Object.entries(productStats)
+    .sort((a, b) => b[1].revenue - a[1].revenue)
+    .slice(0, 5);
+
+  if (sorted.length === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: #666;">No products sold this month</div>`;
+    return;
+  }
+
+  const maxRevenue = sorted[0][1].revenue || 1;
+
+  let html = "";
+  sorted.forEach(([product, stats]) => {
+    const percentage = (stats.revenue / maxRevenue) * 100;
+
+    html += `
+      <div class="productBar">
+        <div class="productHeader">
+          <div class="productName">${product} (${stats.quantity} units)</div>
+          <div class="productRevenue">₹${stats.revenue.toLocaleString()}</div>
+        </div>
+        <div class="barContainer">
+          <div class="barFill" style="width: ${percentage}%;">
+            <div class="barText">${percentage.toFixed(0)}%</div>
+          </div>
+        </div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Sales by Day of Week
+function createSalesByDay(purchases) {
+  const container = document.getElementById("salesByDay");
+  if (!container) {
+    console.error("salesByDay container not found!");
+    return;
+  }
+
+  const dayNames = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const daySales = { 0: 0, 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 };
+
+  purchases.forEach((p) => {
+    if (p.timestamp) {
+      const day = new Date(p.timestamp).getDay();
+      daySales[day] += p.price || 0;
+    }
+  });
+
+  const maxDay = Math.max(...Object.values(daySales), 1);
+
+  let html = "";
+  Object.entries(daySales).forEach(([day, amount]) => {
+    const percentage = (amount / maxDay) * 100;
+
+    html += `
+      <div class="dayItem">
+        <div class="dayName">${dayNames[day]}</div>
+        <div class="dayBar">
+          <div class="dayFill" style="width: ${percentage}%;"></div>
+        </div>
+        <div class="dayAmount">₹${amount.toLocaleString()}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Pending Payments Tracker
+function createPendingPayments(purchases, customers) {
+  console.log("=== PENDING PAYMENTS DEBUG ===");
+  console.log("Total purchases:", purchases.length);
+
+  // Show all payment statuses
+  const statuses = {};
+  purchases.forEach((p) => {
+    const status = p.payment || "undefined";
+    statuses[status] = (statuses[status] || 0) + 1;
+  });
+  console.log("Payment status breakdown:", statuses);
+
+  // Filter for unpaid purchases only
+  const pendingPurchases = purchases.filter((p) => {
+    return p.payment === "unpaid";
+  });
+
+  console.log("Unpaid purchases found:", pendingPurchases.length);
+  if (pendingPurchases.length > 0) {
+    console.log("Sample unpaid purchase:", pendingPurchases[0]);
+  }
+
+  const totalPending = pendingPurchases.reduce(
+    (sum, p) => sum + (p.price || 0),
+    0,
+  );
+  const totalPendingEl = document.getElementById("totalPending");
+  if (totalPendingEl) {
+    totalPendingEl.textContent = `₹${totalPending.toLocaleString()}`;
+  }
+
+  const customersPending = {};
+  pendingPurchases.forEach((p) => {
+    customersPending[p.customerNumber] =
+      (customersPending[p.customerNumber] || 0) + (p.price || 0);
+  });
+
+  const pendingCount = Object.keys(customersPending).length;
+  const pendingCountEl = document.getElementById("pendingCount");
+  if (pendingCountEl) {
+    pendingCountEl.textContent = `${pendingCount} customer${pendingCount !== 1 ? "s" : ""}`;
+  }
+
+  const container = document.getElementById("pendingList");
+  if (!container) {
+    console.error("pendingList container not found!");
+    return;
+  }
+
+  if (pendingCount === 0) {
+    container.innerHTML = `<div style="padding: 20px; text-align: center; color: #16a34a; font-size: 18px;">No pending payments! 🎉</div>`;
+    return;
+  }
+
+  const sorted = Object.entries(customersPending).sort((a, b) => b[1] - a[1]);
+
+  let html = "";
+  sorted.forEach(([number, amount]) => {
+    const customer = customers.find((c) => c.number === number);
+    const customerName = customer ? customer.name : "Unknown";
+
+    html += `
+      <div class="pendingCard">
+        <div class="pendingCustomer">${customerName}</div>
+        <div class="pendingAmount">₹${amount.toLocaleString()}</div>
+      </div>
+    `;
+  });
+
+  container.innerHTML = html;
+}
+
+// Monthly Target Progress
+function createTargetProgress(achieved, currentMonth) {
+  const target = 150000;
+
+  const targetAmountEl = document.getElementById("targetAmount");
+  if (targetAmountEl) {
+    targetAmountEl.textContent = `₹${target.toLocaleString()}`;
+  }
+
+  const achievedAmountEl = document.getElementById("achievedAmount");
+  if (achievedAmountEl) {
+    achievedAmountEl.textContent = `₹${achieved.toLocaleString()}`;
+  }
+
+  const percentage = Math.min((achieved / target) * 100, 100);
+
+  const progressFillEl = document.getElementById("progressFill");
+  if (progressFillEl) {
+    progressFillEl.style.width = `${percentage}%`;
+  }
+
+  const progressTextEl = document.getElementById("progressText");
+  if (progressTextEl) {
+    progressTextEl.textContent = `${percentage.toFixed(1)}%`;
+  }
+
+  const now = new Date();
+  const lastDay = new Date(now.getFullYear(), currentMonth + 1, 0).getDate();
+  const remainingDays = lastDay - now.getDate();
+
+  const remainingDaysEl = document.getElementById("remainingDays");
+  if (remainingDaysEl) {
+    remainingDaysEl.textContent = `${remainingDays} days`;
+  }
 }

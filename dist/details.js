@@ -136,10 +136,6 @@
   });
 });*/
 
-
-
-
-
 /*
 document.addEventListener("DOMContentLoaded", () => {
   const saveBtn = document.querySelector(".lowerDetails button:nth-child(1)");
@@ -495,20 +491,6 @@ function sendWhatsAppBill(phoneNumber, message) {
   window.open(whatsappURL, '_blank');
 }*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /*document.addEventListener("DOMContentLoaded", () => {
   const saveBtn = document.querySelector(".lowerDetails button:nth-child(1)");
   const cancelBtn = document.querySelector(".lowerDetails button:nth-child(2)");
@@ -751,20 +733,7 @@ function sendWhatsAppBill(phoneNumber, message) {
   window.open(whatsappURL, '_blank');
 }*/
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
   const saveBtn = document.querySelector(".saveBtn");
   const cancelBtn = document.querySelector(".cancelBtn");
   const billBtn = document.querySelector(".billBtn");
@@ -1116,7 +1085,311 @@ function sendWhatsAppBill(phoneNumber, message) {
   const whatsappURL = `https://wa.me/${cleanNumber}?text=${encodedMessage}`;
 
   window.open(whatsappURL, '_blank');
+}*/
+
+// new
+
+document.addEventListener("DOMContentLoaded", () => {
+  const saveBtn = document.querySelector(".saveBtn");
+  const cancelBtn = document.querySelector(".cancelBtn");
+  const billBtn = document.querySelector(".billBtn");
+  const addItemBtn = document.querySelector(".addItemBtn");
+  const itemsList = document.getElementById("itemsList");
+
+  const paidBtn = document.querySelector(".paidBtn");
+  const unpaidBtn = document.querySelector(".unpaidBtn");
+
+  // ⛔ Exit if this page does not use this script
+  if (
+    !saveBtn ||
+    !cancelBtn ||
+    !billBtn ||
+    !addItemBtn ||
+    !itemsList ||
+    !paidBtn ||
+    !unpaidBtn
+  ) {
+    return;
+  }
+
+  let itemIndex = 1;
+  let paymentStatus = "unpaid";
+
+  /* ================= PAYMENT STATUS ================= */
+
+  paidBtn.addEventListener("click", () => {
+    paymentStatus = "paid";
+    paidBtn.classList.add("active");
+    unpaidBtn.classList.remove("active");
+  });
+
+  unpaidBtn.addEventListener("click", () => {
+    paymentStatus = "unpaid";
+    unpaidBtn.classList.add("active");
+    paidBtn.classList.remove("active");
+  });
+
+  /* ================= ADD ITEM ================= */
+
+  addItemBtn.addEventListener("click", () => {
+    const itemRow = document.createElement("div");
+    itemRow.classList.add("itemRow");
+    itemRow.setAttribute("data-item-index", itemIndex);
+
+    itemRow.innerHTML = `
+      <div class="itemInputs">
+        <input type="text" class="itemName" placeholder="Item Name" required>
+        <input type="number" class="itemQuantity" placeholder="Qty" min="1" value="1" required>
+        <input type="number" class="itemPrice" placeholder="Price" min="0" step="0.01" required>
+        <button type="button" class="removeItemBtn" title="Remove Item">
+          <i class="fa-solid fa-trash"></i>
+        </button>
+      </div>
+    `;
+
+    itemsList.appendChild(itemRow);
+    itemIndex++;
+
+    attachItemRowListeners(itemRow);
+    updateTotalPrice();
+  });
+
+  /* ================= ITEM ROW LISTENERS ================= */
+
+  function attachItemRowListeners(row) {
+    if (!row) return;
+
+    const removeBtn = row.querySelector(".removeItemBtn");
+    const priceInput = row.querySelector(".itemPrice");
+    const quantityInput = row.querySelector(".itemQuantity");
+
+    if (!removeBtn || !priceInput || !quantityInput) return;
+
+    removeBtn.addEventListener("click", () => {
+      if (itemsList.children.length > 1) {
+        row.remove();
+        updateTotalPrice();
+      } else {
+        alert("At least one item is required!");
+      }
+    });
+
+    priceInput.addEventListener("input", updateTotalPrice);
+    quantityInput.addEventListener("input", updateTotalPrice);
+  }
+
+  const firstRow = itemsList.querySelector(".itemRow");
+  if (firstRow) attachItemRowListeners(firstRow);
+
+  /* ================= TOTAL PRICE ================= */
+
+  function updateTotalPrice() {
+    let total = 0;
+
+    itemsList.querySelectorAll(".itemRow").forEach((row) => {
+      const qty = parseFloat(row.querySelector(".itemQuantity")?.value) || 0;
+      const price = parseFloat(row.querySelector(".itemPrice")?.value) || 0;
+      total += qty * price;
+    });
+
+    const totalAmountEl = document.querySelector(".totalAmount");
+    if (totalAmountEl) {
+      totalAmountEl.textContent = `₹${total.toLocaleString()}`;
+    }
+  }
+
+  /* ================= COLLECT DATA ================= */
+
+  function collectItemsData() {
+    const items = [];
+
+    itemsList.querySelectorAll(".itemRow").forEach((row) => {
+      const name = row.querySelector(".itemName")?.value.trim();
+      const quantity = parseInt(row.querySelector(".itemQuantity")?.value) || 0;
+      const price = parseFloat(row.querySelector(".itemPrice")?.value) || 0;
+
+      if (name && quantity > 0 && price > 0) {
+        items.push({ name, quantity, price });
+      }
+    });
+
+    return items;
+  }
+
+  function calculateTotal(items) {
+    return items.reduce((sum, item) => sum + item.quantity * item.price, 0);
+  }
+
+  /* ================= SAVE ================= */
+
+  saveBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("fname")?.value.trim();
+    const number = document.getElementById("Number")?.value.trim();
+
+    if (!name || !number) {
+      alert("Please fill out customer name and number.");
+      return;
+    }
+
+    const items = collectItemsData();
+    if (!items.length) {
+      alert("Please add at least one valid item.");
+      return;
+    }
+
+    const paymentMethod =
+      document.querySelector('input[name="payment"]:checked')?.value || "cash";
+    const dueDate = document.getElementById("DueDate")?.value || "";
+    const returnDate = document.getElementById("ReturnDate")?.value || "";
+
+    const totalPrice = calculateTotal(items);
+
+    const newPurchase = {
+      id: Date.now(),
+      items,
+      itemsText: items.map((i) => `${i.name} (x${i.quantity})`).join(", "),
+      totalQuantity: items.reduce((s, i) => s + i.quantity, 0),
+      price: totalPrice,
+      payment: paymentStatus,
+      paymentMethod,
+      dueDate,
+      returnDate,
+      date: new Date().toLocaleDateString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric",
+      }),
+      timestamp: Date.now(),
+    };
+
+    const customers = JSON.parse(localStorage.getItem("customers")) || [];
+    const purchases = JSON.parse(localStorage.getItem("purchases")) || [];
+
+    const index = customers.findIndex((c) => c.number === number);
+
+    if (index !== -1) {
+      customers[index].price += totalPrice;
+      customers[index].lastSale = newPurchase.date;
+    } else {
+      customers.push({
+        name,
+        number,
+        price: totalPrice,
+        lastSale: newPurchase.date,
+      });
+    }
+
+    purchases.push({ ...newPurchase, customerNumber: number });
+
+    localStorage.setItem("customers", JSON.stringify(customers));
+    localStorage.setItem("purchases", JSON.stringify(purchases));
+
+    alert("Customer details saved successfully!");
+    resetForm();
+  });
+
+  /* ================= CANCEL ================= */
+
+  cancelBtn.addEventListener("click", resetForm);
+
+  function resetForm() {
+    document.querySelector("form")?.reset();
+
+    while (itemsList.children.length > 1) {
+      itemsList.lastChild.remove();
+    }
+
+    const row = itemsList.querySelector(".itemRow");
+    if (row) {
+      row.querySelector(".itemName").value = "";
+      row.querySelector(".itemQuantity").value = "1";
+      row.querySelector(".itemPrice").value = "";
+    }
+
+    paymentStatus = "unpaid";
+    paidBtn.classList.remove("active");
+    unpaidBtn.classList.add("active");
+
+    updateTotalPrice();
+  }
+
+  /* ================= BILL ================= */
+
+  billBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("fname")?.value.trim();
+    const number = document.getElementById("Number")?.value.trim();
+    const items = collectItemsData();
+
+    if (!name || !number || !items.length) {
+      alert("Please complete customer and item details.");
+      return;
+    }
+
+    const paymentMethod =
+      document.querySelector('input[name="payment"]:checked')?.value || "cash";
+    const dueDate = document.getElementById("DueDate")?.value || "";
+    const returnDate = document.getElementById("ReturnDate")?.value || "";
+
+    const message = generateBillMessage({
+      name,
+      items,
+      totalPrice: calculateTotal(items),
+      paymentStatus,
+      paymentMethod,
+      dueDate,
+      returnDate,
+    });
+
+    sendWhatsAppBill(number, message);
+  });
+});
+
+/* ================= BILL HELPERS ================= */
+
+function generateBillMessage(data) {
+  const date = new Date().toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+  const time = new Date().toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  let msg = `
+📄 *INVOICE*
+
+*Bill To:* ${data.name}
+*Date:* ${date}
+*Time:* ${time}
+
+*ITEM DETAILS*
+`;
+
+  data.items.forEach((item, i) => {
+    msg += `\n${i + 1}. ${item.name} — ${item.quantity} × ₹${item.price}`;
+  });
+
+  msg += `
+
+*TOTAL:* ₹${data.totalPrice.toLocaleString()}
+*PAYMENT:* ${data.paymentStatus.toUpperCase()}
+`;
+
+  return msg.trim();
 }
 
-
-
+function sendWhatsAppBill(phoneNumber, message) {
+  let num = phoneNumber.replace(/\D/g, "");
+  if (num.length === 10) num = "91" + num;
+  window.open(
+    `https://wa.me/${num}?text=${encodeURIComponent(message)}`,
+    "_blank",
+  );
+}

@@ -156,7 +156,7 @@ window.addEventListener('pageshow', (event) => {
   }
 });*/
 
-// new
+//new
 
 document.addEventListener("DOMContentLoaded", () => {
   const container = document.querySelector(".customerReports");
@@ -168,7 +168,7 @@ document.addEventListener("DOMContentLoaded", () => {
     container.innerHTML = "";
 
     const filtered = customers.filter((c) =>
-      c.name.toLowerCase().includes(filter.toLowerCase())
+      c.name.toLowerCase().includes(filter.toLowerCase()),
     );
 
     if (filtered.length === 0) {
@@ -187,7 +187,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.classList.add("customerCard");
       card.innerHTML = `
         <div class="profile" data-total="₹${cust.price.toFixed(
-          2
+          2,
         )}">${initials}</div>
         <div class="detailsSection">
           <div class="fullName">${cust.name}</div>
@@ -231,7 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Delete customer function
   function deleteCustomer(customer) {
     const confirmDelete = confirm(
-      `Are you sure you want to delete ${customer.name}?\n\nThis will permanently remove:\n• Customer record\n• All purchase history\n\nThis action cannot be undone.`
+      `Are you sure you want to delete ${customer.name}?\n\nThis will permanently remove:\n• Customer record\n• All purchase history\n\nThis action cannot be undone.`,
     );
 
     if (!confirmDelete) return;
@@ -288,7 +288,7 @@ window.addEventListener("pageshow", (event) => {
       container.innerHTML = "";
 
       const filtered = customers.filter((c) =>
-        c.name.toLowerCase().includes(filter.toLowerCase())
+        c.name.toLowerCase().includes(filter.toLowerCase()),
       );
 
       if (filtered.length === 0) {
@@ -307,7 +307,7 @@ window.addEventListener("pageshow", (event) => {
         card.classList.add("customerCard");
         card.innerHTML = `
           <div class="profile" data-total="₹${cust.price.toFixed(
-            2
+            2,
           )}">${initials}</div>
           <div class="detailsSection">
             <div class="fullName">${cust.name}</div>
@@ -342,7 +342,7 @@ window.addEventListener("pageshow", (event) => {
           e.stopPropagation();
 
           const confirmDelete = confirm(
-            `Are you sure you want to delete ${cust.name}?\n\nThis will permanently remove:\n• Customer record\n• All purchase history\n\nThis action cannot be undone.`
+            `Are you sure you want to delete ${cust.name}?\n\nThis will permanently remove:\n• Customer record\n• All purchase history\n\nThis action cannot be undone.`,
           );
 
           if (!confirmDelete) return;
@@ -371,7 +371,7 @@ window.addEventListener("pageshow", (event) => {
 function generateInvoiceForCustomer(customer) {
   const allPurchases = JSON.parse(localStorage.getItem("purchases")) || [];
   const customerPurchases = allPurchases.filter(
-    (p) => p.customerNumber === customer.number
+    (p) => p.customerNumber === customer.number,
   );
 
   if (customerPurchases.length === 0) {
@@ -385,7 +385,7 @@ function generateInvoiceForCustomer(customer) {
       (p) =>
         p.payment === "unpaid" ||
         p.payment === "pending" ||
-        p.payment === "Pending"
+        p.payment === "Pending",
     )
     .reduce((sum, p) => sum + p.price, 0);
   const paidAmount = totalAmount - pendingAmount;
