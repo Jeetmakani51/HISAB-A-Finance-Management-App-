@@ -430,7 +430,27 @@ function generateInvoiceForCustomer(customer) {
     message += `\n${index + 1}. *${purchase.date}*\n`;
     message += `   ${itemsText}\n`;
     message += `   ₹${purchase.price.toLocaleString()} - ${status}\n`;
+    if (purchase.advancePayment)
+      message += `   Advance Paid: ₹${purchase.advancePayment.toLocaleString()}\n`;
+    if (purchase.returnAmount)
+      message += `   Return Amount: ₹${purchase.returnAmount.toLocaleString()}\n`;
+    if (purchase.pendingAmount)
+      message += `   Pending Amount: ₹${purchase.pendingAmount.toLocaleString()}\n`;
   });
+
+  // Calculate totals for summary
+  const totalAdvance = customerPurchases.reduce(
+    (sum, p) => sum + (p.advancePayment || 0),
+    0,
+  );
+  const totalReturn = customerPurchases.reduce(
+    (sum, p) => sum + (p.returnAmount || 0),
+    0,
+  );
+  const netPending = customerPurchases.reduce(
+    (sum, p) => sum + (p.pendingAmount || 0),
+    0,
+  );
 
   message += `
 ━━━━━━━━━━━━━━━━━━━━
@@ -438,8 +458,10 @@ function generateInvoiceForCustomer(customer) {
 ━━━━━━━━━━━━━━━━━━━━
 
  *Total Amount:* ₹${totalAmount.toLocaleString()}
+ *Advance Paid:* ₹${totalAdvance.toLocaleString()}
+ *Return Amount:* ₹${totalReturn.toLocaleString()}
  *Paid:* ₹${paidAmount.toLocaleString()}
- *Pending:* ₹${pendingAmount.toLocaleString()}
+ *Pending:* ₹${netPending.toLocaleString()}
 
 ━━━━━━━━━━━━━━━━━━━━
 

@@ -397,7 +397,7 @@
 
 //version - 2
 
-document.addEventListener("DOMContentLoaded", () => {
+/*document.addEventListener("DOMContentLoaded", () => {
   // Get selected customer from localStorage
   const selectedCustomer = JSON.parse(localStorage.getItem("selectedCustomer"));
 
@@ -522,6 +522,239 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="itemAmount">₹${purchase.price.toLocaleString()}</div>
         <div class="status ${statusClass}" data-index="${index}" style="cursor: pointer;">${statusText}</div>
       `;
+
+      // Add click event to status button
+      const statusBtn = itemCard.querySelector(".status");
+      statusBtn.addEventListener("click", () => {
+        togglePaymentStatus(index);
+      });
+
+      itemsContainer.appendChild(itemCard);
+    });
+  }
+
+  // Initial setup
+  document.querySelector(".custName").textContent = selectedCustomer.name;
+  document.querySelector(".custPhoneNo").textContent = selectedCustomer.number;
+
+  if (customerPurchases.length > 0) {
+    document.querySelector(".custHistory .date").textContent =
+      `Last Order: ${customerPurchases[0].date}`;
+  } else {
+    document.querySelector(".custHistory .date").textContent =
+      "Last Order: No orders yet";
+  }
+
+  updateDisplay();
+  renderPurchases();
+});*/
+
+//---------version 3----------------
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Get selected customer from localStorage
+  const selectedCustomer = JSON.parse(localStorage.getItem("selectedCustomer"));
+
+  if (!selectedCustomer) {
+    alert("No customer selected!");
+    window.location.href = "history.html";
+    return;
+  }
+
+  // Get all purchases for this customer
+  const allPurchases = JSON.parse(localStorage.getItem("purchases")) || [];
+  const customerPurchases = allPurchases
+    .filter((p) => p.customerNumber === selectedCustomer.number)
+    .sort((a, b) => b.timestamp - a.timestamp); // Sort by date (newest first)
+
+  // Function to calculate totals with rental tracking
+  function calculateTotals() {
+    let totalSpent = 0;
+    let pendingAmount = 0;
+    let totalAdvancePayment = 0;
+    let totalReturnAmount = 0;
+    let netPendingAmount = 0; // Pending after considering advance and return
+
+    customerPurchases.forEach((purchase) => {
+      totalSpent += purchase.price;
+
+      // Add rental tracking if available
+      totalAdvancePayment += purchase.advancePayment || 0;
+      totalReturnAmount += purchase.returnAmount || 0;
+
+      // Calculate pending based on payment status
+      if (
+        purchase.payment === "unpaid" ||
+        purchase.payment === "pending" ||
+        purchase.payment === "Pending"
+      ) {
+        pendingAmount += purchase.price;
+        // For unpaid items with rental tracking, use pendingAmount field
+        netPendingAmount += purchase.pendingAmount || purchase.price;
+      } else {
+        // For paid items, include pending amount if it exists (shouldn't happen but just in case)
+        netPendingAmount += purchase.pendingAmount || 0;
+      }
+    });
+
+    return {
+      totalSpent,
+      pendingAmount,
+      totalAdvancePayment,
+      totalReturnAmount,
+      netPendingAmount,
+    };
+  }
+
+  // Function to update the display
+  function updateDisplay() {
+    const {
+      totalSpent,
+      pendingAmount,
+      totalAdvancePayment,
+      totalReturnAmount,
+      netPendingAmount,
+    } = calculateTotals();
+
+    document.querySelector(".custTotalSpent span").textContent =
+      `₹${totalSpent.toLocaleString()}`;
+
+    // Show net pending amount (after considering advance payments)
+    document.querySelector(".custAmountPending span").textContent =
+      `₹${netPendingAmount.toLocaleString()}`;
+
+    // Update or create advance payment display
+    let advanceEl = document.querySelector(".custAdvancePayment");
+    if (!advanceEl) {
+      const custAmountPending = document.querySelector(".custAmountPending");
+      advanceEl = document.createElement("div");
+      advanceEl.classList.add("custAdvancePayment");
+      custAmountPending.parentNode.insertBefore(
+        advanceEl,
+        custAmountPending.nextSibling,
+      );
+    }
+    advanceEl.innerHTML = `Advance Paid | <span>₹${totalAdvancePayment.toLocaleString()}</span>`;
+
+    // Update or create return amount display
+    let returnEl = document.querySelector(".custReturnAmount");
+    if (!returnEl) {
+      const advancePaymentEl = document.querySelector(".custAdvancePayment");
+      returnEl = document.createElement("div");
+      returnEl.classList.add("custReturnAmount");
+      advancePaymentEl.parentNode.insertBefore(
+        returnEl,
+        advancePaymentEl.nextSibling,
+      );
+    }
+    returnEl.innerHTML = `Return Amount | <span>₹${totalReturnAmount.toLocaleString()}</span>`;
+
+    console.log("Payment Summary:");
+    console.log("- Total Spent:", totalSpent);
+    console.log("- Advance Paid:", totalAdvancePayment);
+    console.log("- Return Amount:", totalReturnAmount);
+    console.log("- Net Pending:", netPendingAmount);
+  }
+
+  // Function to toggle payment status
+  function togglePaymentStatus(purchaseIndex) {
+    const purchase = customerPurchases[purchaseIndex];
+
+    // Toggle between paid and unpaid
+    if (purchase.payment === "paid" || purchase.payment === "Paid") {
+      purchase.payment = "unpaid";
+    } else {
+      purchase.payment = "paid";
+    }
+
+    // Update the purchase in the main purchases array
+    const allPurchases = JSON.parse(localStorage.getItem("purchases")) || [];
+    const mainIndex = allPurchases.findIndex(
+      (p) =>
+        p.customerNumber === purchase.customerNumber &&
+        p.timestamp === purchase.timestamp,
+    );
+
+    if (mainIndex !== -1) {
+      allPurchases[mainIndex].payment = purchase.payment;
+      localStorage.setItem("purchases", JSON.stringify(allPurchases));
+    }
+
+    // Update the display
+    updateDisplay();
+    renderPurchases();
+  }
+
+  // Function to render purchases
+  function renderPurchases() {
+    const itemsContainer = document.querySelector(".custItemsBought");
+    itemsContainer.innerHTML = ""; // Clear existing items
+
+    if (customerPurchases.length === 0) {
+      itemsContainer.innerHTML = `<p style="color: gray; text-align: center; padding: 20px;">No purchase history available.</p>`;
+      return;
+    }
+
+    customerPurchases.forEach((purchase, index) => {
+      const itemCard = document.createElement("div");
+      itemCard.classList.add("itemCard");
+
+      // Determine status class and text
+      let statusClass = "pending";
+      let statusText = "Pending";
+
+      if (purchase.payment === "paid" || purchase.payment === "Paid") {
+        statusClass = "paid";
+        statusText = "Paid";
+      } else if (
+        purchase.payment === "unpaid" ||
+        purchase.payment === "pending" ||
+        purchase.payment === "Pending"
+      ) {
+        statusClass = "pending";
+        statusText = "Pending";
+      }
+
+      // Handle both old and new item format
+      let itemDisplay = "";
+      if (Array.isArray(purchase.items)) {
+        // New format: array of items
+        itemDisplay = purchase.items
+          .map((item) => `${item.name} (x${item.quantity})`)
+          .join(", ");
+      } else if (purchase.itemsText) {
+        // Use pre-formatted text
+        itemDisplay = purchase.itemsText;
+      } else {
+        // Old format: simple string
+        const quantity = purchase.quantity > 0 ? `(x${purchase.quantity})` : "";
+        itemDisplay = `${purchase.items || "No item specified"} ${quantity}`;
+      }
+
+      // Build item details
+      let detailsHTML = `
+        <div class="itemName">${itemDisplay}</div>
+        <div class="itemAmount">₹${purchase.price.toLocaleString()}</div>
+      `;
+
+      // Add rental tracking details if available
+      if (
+        purchase.advancePayment ||
+        purchase.returnAmount ||
+        purchase.pendingAmount
+      ) {
+        detailsHTML += `
+          <div class="itemRentalDetails">
+            ${purchase.advancePayment ? `<span class="detail">Advance: ₹${purchase.advancePayment.toLocaleString()}</span>` : ""}
+            ${purchase.returnAmount ? `<span class="detail">Return: ₹${purchase.returnAmount.toLocaleString()}</span>` : ""}
+            ${purchase.pendingAmount ? `<span class="detail">Pending: ₹${purchase.pendingAmount.toLocaleString()}</span>` : ""}
+          </div>
+        `;
+      }
+
+      detailsHTML += `<div class="status ${statusClass}" data-index="${index}" style="cursor: pointer;">${statusText}</div>`;
+
+      itemCard.innerHTML = detailsHTML;
 
       // Add click event to status button
       const statusBtn = itemCard.querySelector(".status");

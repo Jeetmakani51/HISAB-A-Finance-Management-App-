@@ -5,11 +5,16 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: $common-bg;
 }
 :root {
-  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
-    "Helvetica Neue", Arial;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    "Helvetica Neue",
+    Arial;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -681,7 +686,9 @@
         color: $text-primary;
         font-size: 15px;
         outline: none;
-        transition: border-color 150ms ease, box-shadow 150ms ease;
+        transition:
+          border-color 150ms ease,
+          box-shadow 150ms ease;
         margin-bottom: 8px;
 
         &:focus {
@@ -931,6 +938,87 @@
           background: darken($primary-blue, 8%);
           transform: translateY(-2px);
           box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+        }
+      }
+    }
+  }
+  // Payment Tracking Section
+  .paymentTrackingSection {
+    margin: 16px 0;
+    padding: 20px;
+    background: #f0f9ff;
+    border-radius: 10px;
+    border: 2px solid #bfdbfe;
+
+    h3 {
+      margin: 0 0 15px 0;
+      font-size: 16px;
+      font-weight: 600;
+      color: #1e40af;
+    }
+
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 600;
+      color: #333;
+      margin-top: 12px;
+      margin-bottom: 8px;
+
+      &:first-of-type {
+        margin-top: 0;
+      }
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+      background: white;
+      color: #333;
+      font-size: 15px;
+      outline: none;
+      margin-bottom: 8px;
+      transition: border-color 150ms ease;
+
+      &:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      }
+    }
+
+    .amountDisplay {
+      margin-top: 15px;
+      padding: 12px;
+      background: white;
+      border-radius: 8px;
+      border: 1px solid #cbd5e1;
+
+      .amountBox {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+
+        &.pending {
+          .amountValue {
+            color: #f59e0b;
+          }
+        }
+
+        .amountLabel {
+          font-size: 14px;
+          font-weight: 600;
+          color: #333;
+        }
+
+        .amountValue {
+          font-size: 18px;
+          font-weight: bold;
+          color: #16a34a;
+          min-width: 100px;
+          text-align: right;
         }
       }
     }
@@ -1675,7 +1763,9 @@
       padding: 15px 25px;
       border-radius: 16px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
       flex-wrap: wrap;
       width: 100%;
       box-sizing: border-box;
@@ -1933,47 +2023,69 @@
     font-size: 30px;
     font-weight: 700;
     letter-spacing: 0.5px;
-    background: transparent;
   }
 
   .custPhoneNo {
     font-size: 16px;
     opacity: 0.9;
     margin-bottom: 15px;
-    background: transparent;
+  }
+
+  // --- PAYMENT SUMMARY SECTION ---
+  .paymentSummary {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 20px;
+    background: transparent !important;
   }
 
   .custTotalSpent,
+  .custAdvancePayment,
+  .custReturnAmount,
   .custAmountPending {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
-    margin-bottom: 6px;
-    background: transparent;
+    margin-bottom: 0;
+    padding: 10px 15px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    color: white;
+    background: rgba(255, 255, 255, 0.15);
 
     span {
       font-weight: 700;
-      margin-left: 5px;
-      background: transparent;
+      margin-left: 8px;
+    }
+
+    &:hover {
+      transform: translateX(5px);
     }
   }
 
   .custTotalSpent {
-    color: white;
-    background: transparent;
-
     span {
       color: #cff7c1; // mint green for total spent
-      background: transparent;
+    }
+  }
+
+  .custAdvancePayment {
+    span {
+      color: #b0e7ff; // light blue for advance paid
+    }
+  }
+
+  .custReturnAmount {
+    span {
+      color: #ffb0e7; // light pink for return amount
     }
   }
 
   .custAmountPending {
-    color: white;
-    background: transparent;
-
     span {
       color: #ffd26f; // yellowish for pending
-      background: transparent;
     }
   }
 
@@ -2005,13 +2117,16 @@
 
       .itemCard {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
         background: white;
         border-radius: 14px;
         padding: 12px 15px;
         box-shadow: 0 3px 6px rgba(0, 0, 0, 0.05);
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
 
         &:hover {
           transform: translateY(-2px);
@@ -2030,11 +2145,30 @@
           font-size: 15px;
         }
 
+        .itemRentalDetails {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px;
+          padding-top: 8px;
+          border-top: 1px solid #f0f0f0;
+
+          .detail {
+            font-size: 12px;
+            background: #f0f5ff;
+            color: #2563eb;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-weight: 500;
+          }
+        }
+
         .status {
           font-size: 14px;
           font-weight: 500;
           padding: 5px 10px;
           border-radius: 10px;
+          cursor: pointer;
 
           &.paid {
             background: #cff7c1;
@@ -2049,8 +2183,6 @@
       }
     }
   }
-
-  // --- RESPONSIVENESS ---
   @media (max-width: 768px) {
     padding: 25px 20px;
 
@@ -2104,6 +2236,8 @@
     }
   }
 }
+
+// --- RESPONSIVENESS ---
 
 //todays sale
 

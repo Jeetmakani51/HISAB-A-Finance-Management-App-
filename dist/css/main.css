@@ -2,7 +2,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #f5f6fa;
 }
 
 :root {
@@ -881,6 +880,74 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
 }
+.details .paymentTrackingSection {
+  margin: 16px 0;
+  padding: 20px;
+  background: #f0f9ff;
+  border-radius: 10px;
+  border: 2px solid #bfdbfe;
+}
+.details .paymentTrackingSection h3 {
+  margin: 0 0 15px 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1e40af;
+}
+.details .paymentTrackingSection label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+.details .paymentTrackingSection label:first-of-type {
+  margin-top: 0;
+}
+.details .paymentTrackingSection input[type=number] {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  background: white;
+  color: #333;
+  font-size: 15px;
+  outline: none;
+  margin-bottom: 8px;
+  transition: border-color 150ms ease;
+}
+.details .paymentTrackingSection input[type=number]:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+.details .paymentTrackingSection .amountDisplay {
+  margin-top: 15px;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+}
+.details .paymentTrackingSection .amountDisplay .amountBox {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+.details .paymentTrackingSection .amountDisplay .amountBox.pending .amountValue {
+  color: #f59e0b;
+}
+.details .paymentTrackingSection .amountDisplay .amountBox .amountLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+.details .paymentTrackingSection .amountDisplay .amountBox .amountValue {
+  font-size: 18px;
+  font-weight: bold;
+  color: #16a34a;
+  min-width: 100px;
+  text-align: right;
+}
 
 @media (max-width: 768px) {
   .details {
@@ -1721,42 +1788,58 @@
   font-size: 30px;
   font-weight: 700;
   letter-spacing: 0.5px;
-  background: transparent;
 }
 .custInfo .custPhoneNo {
   font-size: 16px;
   opacity: 0.9;
   margin-bottom: 15px;
-  background: transparent;
+}
+.custInfo .paymentSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 20px;
+  background: transparent !important;
 }
 .custInfo .custTotalSpent,
+.custInfo .custAdvancePayment,
+.custInfo .custReturnAmount,
 .custInfo .custAmountPending {
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
-  margin-bottom: 6px;
-  background: transparent;
+  margin-bottom: 0;
+  padding: 10px 15px;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  color: white;
+  background: rgba(255, 255, 255, 0.15);
 }
 .custInfo .custTotalSpent span,
+.custInfo .custAdvancePayment span,
+.custInfo .custReturnAmount span,
 .custInfo .custAmountPending span {
   font-weight: 700;
-  margin-left: 5px;
-  background: transparent;
+  margin-left: 8px;
 }
-.custInfo .custTotalSpent {
-  color: white;
-  background: transparent;
+.custInfo .custTotalSpent:hover,
+.custInfo .custAdvancePayment:hover,
+.custInfo .custReturnAmount:hover,
+.custInfo .custAmountPending:hover {
+  transform: translateX(5px);
 }
 .custInfo .custTotalSpent span {
   color: #cff7c1;
-  background: transparent;
 }
-.custInfo .custAmountPending {
-  color: white;
-  background: transparent;
+.custInfo .custAdvancePayment span {
+  color: #b0e7ff;
+}
+.custInfo .custReturnAmount span {
+  color: #ffb0e7;
 }
 .custInfo .custAmountPending span {
   color: #ffd26f;
-  background: transparent;
 }
 .custInfo .custHistory {
   margin-top: 35px;
@@ -1784,8 +1867,9 @@
 }
 .custInfo .custHistory .custItemsBought .itemCard {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
   background: white;
   border-radius: 14px;
   padding: 12px 15px;
@@ -1806,11 +1890,28 @@
   font-weight: 600;
   font-size: 15px;
 }
+.custInfo .custHistory .custItemsBought .itemCard .itemRentalDetails {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding-top: 8px;
+  border-top: 1px solid #f0f0f0;
+}
+.custInfo .custHistory .custItemsBought .itemCard .itemRentalDetails .detail {
+  font-size: 12px;
+  background: #f0f5ff;
+  color: #2563eb;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+}
 .custInfo .custHistory .custItemsBought .itemCard .status {
   font-size: 14px;
   font-weight: 500;
   padding: 5px 10px;
   border-radius: 10px;
+  cursor: pointer;
 }
 .custInfo .custHistory .custItemsBought .itemCard .status.paid {
   background: #cff7c1;
